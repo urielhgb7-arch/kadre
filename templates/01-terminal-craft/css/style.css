@@ -785,7 +785,7 @@ body::before {
    LIQUID GLASS & METAL NAVBAR
    ========================================== */
 .terminal-header, .navbar {
-    background: rgba(13, 17, 23, 0.45) !important;
+    background: rgba(13, 17, 23, 0.85) !important;
     backdrop-filter: blur(16px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
     border: none !important;
@@ -794,7 +794,7 @@ body::before {
 }
 
 [data-theme-mode="light"] .terminal-header, .navbar {
-    background: rgba(250, 250, 250, 0.45) !important;
+    background: rgba(250, 250, 250, 0.85) !important;
     box-shadow: inset 0 -1px 0 rgba(255,255,255,0.3), 0 10px 30px rgba(0,0,0,0.1) !important;
 }
 
