@@ -2,15 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://urielhgb7-arch.github.io/kadre/</loc>
+    <loc>https://kadre-blue.vercel.app/</loc>
     <lastmod>2026-08-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://urielhgb7-arch.github.io/kadre/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://urielhgb7-arch.github.io/kadre/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://kadre-blue.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kadre-blue.vercel.app/?lang=en"/>
   </url>
   <url>
-    <loc>https://urielhgb7-arch.github.io/kadre/sandbox.html</loc>
+    <loc>https://kadre-blue.vercel.app/sandbox.html</loc>
     <lastmod>2026-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
