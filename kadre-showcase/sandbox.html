@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previewer Kadre — Sandbox Interactive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #060608;
+            --glass-bg: rgba(18, 18, 22, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent: #d4a656;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* TOP BAR */
+        .sandbox-topbar {
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+        .left-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .back-btn {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: var(--text-main); }
+        
+        .device-controls {
+            display: flex;
+            background: rgba(0,0,0,0.5);
+            border-radius: 8px;
+            padding: 4px;
+            border: 1px solid var(--glass-border);
+        }
+        .device-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .device-btn.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-main);
+        }
+        .buy-btn {
+            background: var(--accent);
+            color: #000;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+        .buy-btn:hover { opacity: 0.9; }
+
+        /* IFRAME WRAPPER */
+        .iframe-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            padding: 20px;
+            transition: padding 0.3s;
+        }
+        .iframe-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+
+        /* DEVICE SIZES */
+        .iframe-wrapper.desktop {
+            width: 100%;
+            max-width: 1440px;
+        }
+        .iframe-wrapper.tablet {
+            width: 768px;
+            height: 1024px;
+            max-height: 100%;
+        }
+        .iframe-wrapper.mobile {
+            width: 375px;
+            height: 812px;
+            max-height: 100%;
+            border-radius: 30px;
+            border: 8px solid #222;
+        }
+
+        /* TOOLTIP UX */
+        .ux-tooltip {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background: rgba(139, 92, 246, 0.9);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+            animation: bounce 2s infinite, fadeInOut 15s forwards;
+            pointer-events: none;
+            z-index: 200;
+        }
+        .ux-tooltip::before {
+            content: '✨';
+            margin-right: 8px;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sandbox-topbar">
+        <div class="left-controls">
+            <a href="index.html" class="back-btn" title="Retour">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </a>
+            <img src="assets/img/kadre-logo.png" alt="Kadre" style="height:24px; object-fit:contain; margin-left:12px; border-left: 1px solid rgba(255,255,255,0.1); padding-left:12px;">
+        </div>
+        <div class="device-controls">
+            <button class="device-btn active" data-device="desktop">Desktop</button>
+            <button class="device-btn" data-device="tablet">Tablette</button>
+            <button class="device-btn" data-device="mobile">Mobile</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+            <a href="#" class="buy-btn" style="background:transparent;border:1px solid var(--accent);color:var(--accent);">Personnaliser</a>
+            <a href="https://maketou.com/kadre" target="_blank" class="buy-btn">Acheter — 39$</a>
+        </div>
+    </div>
+
+    <div class="iframe-container">
+        <div class="iframe-wrapper desktop" id="preview-wrapper">
+            <iframe id="preview-frame" src=""></iframe>
+        </div>
+    </div>
+    
+    <div class="ux-tooltip">Cliquez sur <b>"Personnaliser"</b> dans la barre du haut pour modifier le contenu !</div>
+
+    <script>
+        // Récupérer le paramètre "t"
+        const params = new URLSearchParams(window.location.search);
+        let templateFile = params.get('t') || 'template-01-terminal-craft.html';
+        
+        // Mappage du fichier vers le dossier templates
+        let folderName = templateFile.replace('template-', '').replace('.html', '');
+        
+        // Charger l'URL réelle avec ?sandbox=true pour désactiver le triple-clic
+        const frame = document.getElementById('preview-frame');
+        frame.src = '../templates/' + folderName + '/index.html?sandbox=true';
+
+        // Gestion des devices
+        const wrapper = document.getElementById('preview-wrapper');
+        document.querySelectorAll('.device-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                const device = e.target.dataset.device;
+                wrapper.className = 'iframe-wrapper ' + device;
+            });
+        });
+    </script>
+</body>
+</html>

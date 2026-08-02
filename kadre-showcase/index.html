@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadre — Portfolio Développeur Personnalisable & CMS No-Code</title>
+    <meta name="description" content="Découvrez 15 designs premium pour portfolio. Personnalisable sans code, avec CMS intégré et hébergement gratuit.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: hsl(222, 47%, 5%);
+            --bg-surface: hsl(222, 35%, 9%);
+            --bg-elevated: hsl(222, 25%, 13%);
+            --accent: hsl(38, 85%, 58%);
+            --accent-glow: hsla(38, 85%, 58%, 0.4);
+            --text-1: hsl(0, 0%, 96%);
+            --text-2: hsl(222, 20%, 60%);
+            --border: rgba(255,255,255,0.07);
+            --glass: rgba(255,255,255,0.04);
+            --glass-border: rgba(255,255,255,0.08);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-base);
+            color: var(--text-1);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 200px 200px;
+        }
+        .mesh-bg {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse 80% 60% at 70% 10%, hsla(38, 85%, 58%, 0.08), transparent),
+                radial-gradient(ellipse 60% 50% at 10% 80%, hsla(271, 91%, 65%, 0.06), transparent),
+                radial-gradient(ellipse 40% 40% at 50% 50%, hsla(222, 100%, 30%, 0.05), transparent);
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 0 24px; height: 72px;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: background 0.4s, box-shadow 0.4s, backdrop-filter 0.4s;
+        }
+        .navbar.scrolled {
+            background: rgba(4,4,10,0.8);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+        }
+        .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .nav-logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700; font-size: 1.3rem; color: #fff;
+            letter-spacing: -0.02em;
+        }
+        .nav-logo-accent { color: var(--accent); }
+        .nav-links { display: flex; align-items: center; gap: 6px; }
+        .nav-link {
+            color: rgba(255,255,255,0.6); text-decoration: none;
+            font-size: 0.88rem; font-weight: 500; padding: 8px 14px;
+            border-radius: 8px; transition: color 0.2s, background 0.2s;
+        }
+        .nav-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent), hsl(38, 85%, 68%));
+            color: #0a0a0a; font-weight: 700; font-size: 0.85rem;
+            padding: 10px 22px; border-radius: 10px; text-decoration: none;
+            margin-left: 8px; transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 28px var(--accent-glow); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 160px 0 100px; text-align: center;
+            position: relative; z-index: 2;
+        }
+        .hero-eyebrow {
+            display: inline-block; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase; color: var(--accent);
+            border: 1px solid hsla(38,85%,58%,0.35); padding: 6px 16px;
+            border-radius: 40px; margin-bottom: 28px;
+            background: hsla(38,85%,58%,0.06);
+            animation: fadeInUp 0.6s var(--ease-out) both;
+        }
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 6.5vw, 5rem); font-weight: 700;
+            line-height: 1.08; letter-spacing: -0.04em; margin-bottom: 28px;
+            animation: fadeInUp 0.6s 0.1s var(--ease-out) both;
+        }
+        .hero-title span {
+            background: linear-gradient(135deg, var(--accent) 0%, hsl(38,95%,75%) 60%, #fff 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.15rem); color: var(--text-2);
+            line-height: 1.7; max-width: 640px; margin: 0 auto 40px;
+            animation: fadeInUp 0.6s 0.2s var(--ease-out) both;
+        }
+        .hero-actions {
+            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+            animation: fadeInUp 0.6s 0.3s var(--ease-out) both;
+        }
+        .btn-primary {
+            display: inline-flex; align-items: center;
+            background: linear-gradient(135deg, var(--accent), hsl(38,85%,68%));
+            color: #0a0a0a; font-weight: 700; padding: 14px 32px;
+            border-radius: 12px; text-decoration: none; font-size: 0.95rem;
+            box-shadow: 0 6px 28px var(--accent-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px var(--accent-glow); }
+        .btn-ghost {
+            display: inline-flex; align-items: center;
+            color: rgba(255,255,255,0.7); font-weight: 600; padding: 13px 28px;
+            border-radius: 12px; text-decoration: none; font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: color 0.2s, border-color 0.2s, background 0.2s;
+        }
+        .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.06); }
+
+        /* ── SECTIONS ── */
+        .section { padding: 100px 0; position: relative; z-index: 2; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700;
+            letter-spacing: -0.03em; margin-bottom: 12px;
+        }
+        .section-subtitle { color: var(--text-2); font-size: 1rem; }
+
+        /* ── FEATURES ── */
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .feature-card {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 32px 26px;
+            transition: border-color 0.3s, transform 0.3s, background 0.3s;
+        }
+        .feature-card:hover { border-color: hsla(38,85%,58%,0.3); transform: translateY(-4px); background: rgba(255,255,255,0.05); }
+        .feat-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: hsla(38,85%,58%,0.1); border: 1px solid hsla(38,85%,58%,0.2);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent); margin-bottom: 18px;
+        }
+        .feature-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+        .feature-desc { font-size: 0.87rem; color: var(--text-2); line-height: 1.65; }
+
+        /* ── FILTER ── */
+        .filter-container { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center; }
+        .filter-btn {
+            padding: 8px 18px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.12);
+            background: transparent; color: rgba(255,255,255,0.55); font-size: 0.85rem;
+            cursor: pointer; transition: all 0.2s; font-family: inherit;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: hsla(38,85%,58%,0.15); border-color: hsla(38,85%,58%,0.5); color: var(--accent);
+        }
+
+        /* ── TEMPLATE CARDS ── */
+        .template-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .template-card {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 20px; overflow: hidden;
+            transition: border-color 0.35s var(--ease-out), transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+        }
+        .template-card:hover {
+            border-color: hsla(38,85%,58%,0.35); transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 40px hsla(38,85%,58%,0.08);
+        }
+        .card-preview {
+            width: 100%; height: 220px; overflow: hidden; position: relative;
+            background: #0a0a0f;
+        }
+        .card-preview iframe {
+            width: 200%; height: 200%; border: none;
+            transform: scale(0.5); transform-origin: top left;
+            pointer-events: none;
+        }
+        .card-preview-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(4,4,10,0.9) 100%);
+            z-index: 1;
+        }
+        .card-body { padding: 22px; }
+        .card-target {
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+        }
+        .card-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem; font-weight: 700; margin-bottom: 6px;
+        }
+        .card-desc { font-size: 0.82rem; color: var(--text-2); line-height: 1.5; margin-bottom: 18px; }
+        .card-footer { display: flex; align-items: center; justify-content: space-between; }
+        .card-price { font-size: 1.1rem; font-weight: 800; color: var(--accent); }
+        .card-btns { display: flex; gap: 8px; }
+        .btn-sm {
+            padding: 8px 14px; border-radius: 8px; font-size: 0.8rem;
+            font-weight: 600; text-decoration: none; transition: all 0.2s;
+            font-family: inherit; cursor: pointer; border: none;
+        }
+        .btn-preview {
+            color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15);
+            background: transparent;
+        }
+        .btn-preview:hover { color: #fff; border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.06); }
+        .btn-customize {
+            color: rgba(255,255,255,0.9);
+            background: transparent;
+            backdrop-filter: blur(20px) saturate(180%) brightness(1.1);
+            -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(1.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-top-color: rgba(255,255,255,0.25);
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(255,255,255,0.05);
+            transition: all 0.25s var(--ease-out);
+        }
+        .btn-customize:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+        }
+        .btn-order {
+            color: var(--accent); border: 1px solid hsla(38,85%,58%,0.4);
+            background: transparent;
+        }
+        .btn-order:hover { background: hsla(38,85%,58%,0.1); border-color: var(--accent); }
+
+        /* ── CMS PREVIEW MODAL ── */
+        .cms-modal {
+            position: fixed; inset: 0; z-index: 1000;
+            display: none; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s var(--ease-out);
+        }
+        .cms-modal.active { display: flex; }
+        .cms-modal-content {
+            width: 95vw; height: 90vh; max-width: 1400px;
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            animation: scaleIn 0.4s var(--ease-spring);
+        }
+        .cms-topbar {
+            height: 56px; padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+        .cms-topbar-left { display: flex; align-items: center; gap: 12px; }
+        .cms-close {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border);
+            color: var(--text-2); cursor: pointer; display: flex;
+            align-items: center; justify-content: center; transition: all 0.2s;
+            font-size: 1.1rem;
+        }
+        .cms-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .cms-template-name { font-weight: 600; font-size: 0.9rem; }
+        .cms-badge {
+            font-size: 0.7rem; padding: 3px 10px; border-radius: 20px;
+            background: hsla(38,85%,58%,0.15); color: var(--accent);
+            font-weight: 600; border: 1px solid hsla(38,85%,58%,0.3);
+        }
+        .cms-body { display: flex; flex: 1; overflow: hidden; }
+        .cms-iframe-area {
+            flex: 1; position: relative; background: #0a0a0f;
+        }
+        .cms-iframe-area iframe {
+            width: 100%; height: 100%; border: none;
+        }
+        .cms-lock-overlay {
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(12px);
+            display: none; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; gap: 20px; padding: 40px;
+            z-index: 10;
+        }
+        .cms-lock-overlay.active { display: flex; }
+        .lock-icon {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: hsla(38,85%,58%,0.15); border: 2px solid var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; animation: pulse 2s infinite;
+        }
+        .lock-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem; font-weight: 700;
+        }
+        .lock-desc { color: var(--text-2); max-width: 400px; line-height: 1.6; }
+        .lock-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, var(--accent), hsl(38,85%,68%));
+            color: #0a0a0a; font-weight: 700; padding: 14px 32px;
+            border-radius: 12px; text-decoration: none; font-size: 0.95rem;
+            box-shadow: 0 6px 28px var(--accent-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .lock-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px var(--accent-glow); }
+
+        /* CMS Sidebar */
+        .cms-sidebar {
+            width: 320px; background: rgba(0,0,0,0.4);
+            border-left: 1px solid var(--glass-border);
+            padding: 20px; overflow-y: auto;
+            flex-shrink: 0;
+        }
+        .cms-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem; font-weight: 700; margin-bottom: 20px;
+            color: var(--accent); text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .cms-field { margin-bottom: 18px; }
+        .cms-field label {
+            display: block; font-size: 0.78rem; font-weight: 600;
+            color: var(--text-2); margin-bottom: 6px; text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .cms-field input, .cms-field textarea {
+            width: 100%; padding: 10px 14px; border-radius: 10px;
+            border: 1px solid var(--glass-border); background: rgba(255,255,255,0.04);
+            color: #fff; font-family: inherit; font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        .cms-field input:focus, .cms-field textarea:focus {
+            outline: none; border-color: var(--accent);
+        }
+        .cms-field textarea { resize: vertical; min-height: 80px; }
+        .cms-counter {
+            margin-top: 20px; padding: 14px; border-radius: 12px;
+            background: hsla(38,85%,58%,0.08); border: 1px solid hsla(38,85%,58%,0.2);
+            text-align: center;
+        }
+        .cms-counter-text { font-size: 0.82rem; color: var(--text-2); }
+        .cms-counter-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+        .cms-counter-hint { font-size: 0.75rem; color: var(--text-2); margin-top: 4px; opacity: 0.7; }
+
+        /* ── FAQ ── */
+        .faq-list { display: flex; flex-direction: column; gap: 2px; max-width: 720px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 4px 0; }
+        .faq-item summary {
+            font-weight: 600; color: rgba(255,255,255,0.85); padding: 18px 0;
+            cursor: pointer; list-style: none; display: flex;
+            justify-content: space-between; align-items: center; transition: color 0.2s;
+        }
+        .faq-item summary:hover { color: #fff; }
+        .faq-item summary::after { content: '+'; color: var(--accent); font-size: 1.3rem; font-weight: 300; }
+        .faq-item[open] summary::after { content: '\2212'; }
+        .faq-item p { font-size: 0.9rem; color: var(--text-2); line-height: 1.7; padding-bottom: 18px; }
+
+        /* ── FOOTER ── */
+        .site-footer {
+            padding: 70px 0 40px; border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative; z-index: 2; text-align: center;
+        }
+        .footer-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;
+            color: #fff; text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.1); padding: 8px 18px;
+            border-radius: 40px; background: rgba(255,255,255,0.03);
+            display: inline-block; margin-bottom: 20px;
+        }
+        .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 16px; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); } 50% { box-shadow: 0 0 0 12px transparent; } }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .template-grid { grid-template-columns: repeat(2, 1fr); }
+            .cms-sidebar { width: 260px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 72px; left: 16px; right: 16px;
+                flex-direction: column; background: rgba(4,4,10,0.95);
+                backdrop-filter: blur(24px); border: 1px solid var(--glass-border);
+                border-radius: 16px; padding: 16px; gap: 4px;
+            }
+            .nav-links.open { display: flex; }
+            .hamburger { display: flex; }
+            .template-grid { grid-template-columns: 1fr; }
+            .hero { padding: 120px 20px 70px; }
+            .hero-actions { flex-direction: column; align-items: center; }
+            .cms-body { flex-direction: column; }
+            .cms-sidebar { width: 100%; max-height: 40vh; border-left: none; border-top: 1px solid var(--glass-border); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+<!-- LOADER -->
+<div id="kadre-loader" style="position:fixed;inset:0;z-index:99999;background:#060608;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s ease,visibility 0.8s ease;">
+    <canvas id="loader-canvas" width="600" height="200"></canvas>
+    <div id="loader-brand" style="margin-top:20px;font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:4px;font-size:0.72rem;text-transform:uppercase;color:rgba(255,255,255,0.5);min-height:1.2em;"></div>
+</div>
+<script>
+(function(){
+    if (sessionStorage.getItem('kadre-loaded')) {
+        var el = document.getElementById('kadre-loader');
+        if (el) { el.style.opacity='0'; el.style.visibility='hidden'; }
+        return;
+    }
+
+    var loader = document.getElementById('kadre-loader');
+    var canvas = document.getElementById('loader-canvas');
+    if (!canvas || !loader) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+
+    var particlesDone = false;
+    var brandDone = false;
+
+    function tryDismiss() {
+        if (particlesDone && brandDone) {
+            sessionStorage.setItem('kadre-loaded', '1');
+            loader.style.opacity = '0';
+            loader.style.visibility = 'hidden';
+        }
+    }
+
+    // Particle text "KADRE"
+    var particles = [];
+    var text = "KADRE";
+    ctx.font = "bold 80px 'Space Grotesk', sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#fff";
+    ctx.fillText(text, W/2, H/2);
+
+    var imageData = ctx.getImageData(0, 0, W, H);
+    ctx.clearRect(0, 0, W, H);
+
+    for (var y = 0; y < H; y += 3) {
+        for (var x = 0; x < W; x += 3) {
+            var i = (y * W + x) * 4;
+            if (imageData.data[i+3] > 128) {
+                particles.push({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    tx: x,
+                    ty: y,
+                    alpha: 0,
+                    size: 1.2 + Math.random() * 1.2
+                });
+            }
+        }
+    }
+
+    var t = 0;
+    function draw() {
+        // Liquid metal background
+        var g = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W*0.6);
+        g.addColorStop(0, 'rgba(40,38,45,1)');
+        g.addColorStop(0.5, 'rgba(20,18,22,1)');
+        g.addColorStop(1, 'rgba(6,6,8,1)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+
+        t += 0.04;
+        var done = true;
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            var ease = 0.06 + t * 0.004;
+            p.x += (p.tx - p.x) * ease;
+            p.y += (p.ty - p.y) * ease;
+            p.alpha = Math.min(1, p.alpha + 0.03);
+            if (Math.abs(p.x - p.tx) > 0.5 || Math.abs(p.y - p.ty) > 0.5) done = false;
+            var gv = 180 + Math.floor(p.alpha * 75);
+            ctx.fillStyle = "rgba(" + (gv+30) + "," + (gv+20) + "," + (gv-30) + "," + p.alpha + ")";
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+        }
+        if (!done) {
+            requestAnimationFrame(draw);
+        } else {
+            particlesDone = true;
+            tryDismiss();
+        }
+    }
+    draw();
+
+    // "BY VOUH DIGITAL" letter by letter
+    var brand = document.getElementById('loader-brand');
+    var brandText = "BY VOUH DIGITAL";
+    var brandIdx = 0;
+    function typeBrand() {
+        if (brandIdx <= brandText.length) {
+            brand.textContent = brandText.substring(0, brandIdx);
+            brandIdx++;
+            setTimeout(typeBrand, 70);
+        } else {
+            brandDone = true;
+            tryDismiss();
+        }
+    }
+    setTimeout(typeBrand, 1200);
+
+    // Fallback: force dismiss after 4s max
+    setTimeout(function() {
+        particlesDone = true;
+        brandDone = true;
+        tryDismiss();
+    }, 4000);
+})();
+</script>
+
+<div class="mesh-bg"></div>
+<canvas id="kadre-webgl" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
+
+<!-- NAVBAR -->
+<header class="navbar" id="main-navbar">
+    <a href="index.html" class="nav-logo">
+        <span class="nav-logo-text">K<span class="nav-logo-accent">A</span>DRE</span>
+    </a>
+    <nav class="nav-links" id="nav-links">
+        <a href="#features" class="nav-link">Pourquoi Kadre</a>
+        <a href="#catalog" class="nav-link">Designs</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#catalog" class="nav-cta">Explorer</a>
+    </nav>
+    <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</header>
+
+<!-- HERO -->
+<main style="position:relative;z-index:2;">
+<section class="hero">
+    <div class="container">
+        <div class="hero-eyebrow">COLLECTION 2026</div>
+        <h1 class="hero-title">
+            Votre Portfolio<br>
+            <span>Enti&egrave;rement Personnalisable.</span>
+        </h1>
+        <p class="hero-subtitle">
+            5 designs premium propuls&eacute;s par un CMS No-Code int&eacute;gr&eacute;.<br>
+            Personnalisez votre pr&eacute;sence en ligne sans &eacute;crire une seule ligne de code.
+        </p>
+        <div class="hero-actions">
+            <a href="#catalog" class="btn-primary">Explorer les Designs</a>
+            <a href="#features" class="btn-ghost">En Savoir Plus</a>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Pourquoi choisir Kadre ?</h2>
+            <p class="section-subtitle">L'alternative aux abonnements qui ne finissent jamais.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+                <h3 class="feature-title">Achat Unique. &Agrave; Vie.</h3>
+                <p class="feature-desc">Un seul paiement. Vous &ecirc;tes propri&eacute;taire &agrave; 100% de votre site, sans frais mensuels.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
+                <h3 class="feature-title">CMS No-Code</h3>
+                <p class="feature-desc">Personnalisez projets, comp&eacute;tences, bio et contacts via un panneau fluide et s&eacute;curis&eacute;.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <h3 class="feature-title">S&eacute;curit&eacute; Supabase</h3>
+                <p class="feature-desc">Authentification serveur r&eacute;elle avec chiffrement et r&egrave;gles RLS pour prot&eacute;ger vos acc&egrave;s.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+                <h3 class="feature-title">H&eacute;bergement Gratuit</h3>
+                <p class="feature-desc">D&eacute;ployez votre portfolio gratuitement sur Vercel, Netlify ou GitHub Pages.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATALOG -->
+<section class="section" id="catalog">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Choisissez votre identit&eacute; num&eacute;rique</h2>
+            <p class="section-subtitle">5 designs premium &mdash; personnalisez-les en un clic.</p>
+        </div>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterTemplates('all', this)">Tous</button>
+            <button class="filter-btn" onclick="filterTemplates('dev', this)">Dev &amp; Tech</button>
+            <button class="filter-btn" onclick="filterTemplates('design', this)">Design &amp; Cr&eacute;atif</button>
+            <button class="filter-btn" onclick="filterTemplates('exec', this)">Business</button>
+        </div>
+        <div class="template-grid" id="template-grid"></div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Questions fr&eacute;quentes</h2>
+        </div>
+        <div class="faq-list">
+            <details class="faq-item">
+                <summary>Comment personnaliser le contenu ?</summary>
+                <p>Cliquez sur "Personnaliser" pour ouvrir le CMS int&eacute;gr&eacute;. Modifiez votre nom, titre, photo et comp&eacute;tences en direct. Aucun code requis.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Ai-je besoin d'un serveur payant ?</summary>
+                <p>Non. H&eacute;bergez votre portfolio gratuitement sur Vercel, Netlify ou GitHub Pages. Le seul service payant (optionnel) est Supabase pour la persistance.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Puis-je utiliser plusieurs designs ?</summary>
+                <p>Chaque design est vendu s&eacute;par&eacute;ment avec une licence &agrave; vie. Achetez autant que vous souhaitez.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Le code source est-il inclus ?</summary>
+                <p>Oui &mdash; HTML, CSS et JS complets. Le core CMS est prot&eacute;g&eacute; par obfuscation mais toujours fonctionnel.</p>
+            </details>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-brand">VOUH DIGITAL</div>
+        <p style="font-size:0.88rem;color:rgba(255,255,255,0.5);max-width:420px;margin:0 auto;line-height:1.7;">
+            L'&eacute;cosyst&egrave;me portfolio le plus avanc&eacute; pour d&eacute;veloppeurs et cr&eacute;atifs.
+        </p>
+        <p class="footer-copy">&copy; 2026 VOUH Digital &middot; Tous droits r&eacute;serv&eacute;s</p>
+    </div>
+</footer>
+
+<!-- CMS PREVIEW MODAL -->
+<div class="cms-modal" id="cms-modal">
+    <div class="cms-modal-content">
+        <div class="cms-topbar">
+            <div class="cms-topbar-left">
+                <button class="cms-close" onclick="closeCmsModal()">&times;</button>
+                <span class="cms-template-name" id="cms-modal-name">Template</span>
+                <span class="cms-badge">DEMO</span>
+            </div>
+            <a href="https://maketou.com/kadre" target="_blank" class="btn-sm btn-order">Acheter ce Template</a>
+        </div>
+        <div class="cms-body">
+            <div class="cms-iframe-area">
+                <iframe id="cms-iframe" src="" sandbox="allow-scripts allow-same-origin allow-top-navigation allow-popups"></iframe>
+                <div class="cms-lock-overlay" id="cms-lock">
+                    <div class="lock-icon">&#128274;</div>
+                    <h3 class="lock-title">Vous avez go&ucirc;t&eacute; ?</h3>
+                    <p class="lock-desc">
+                        Vous avez utilis&eacute; les 3 personnalisations gratuites.
+                        Achetez ce template pour d&eacute;bloquer le CMS complet et sauvegarder vos changements.
+                    </p>
+                    <a href="https://maketou.com/kadre" target="_blank" class="lock-btn">
+                        D&eacute;bloquer le CMS &mdash; 39$
+                    </a>
+                </div>
+            </div>
+            <div class="cms-sidebar">
+                <h3>Personnaliser</h3>
+                <div class="cms-field">
+                    <label>Votre nom</label>
+                    <input type="text" id="cms-name" placeholder="Votre Nom" oninput="onCmsChange('name', this.value)">
+                </div>
+                <div class="cms-field">
+                    <label>Votre titre</label>
+                    <input type="text" id="cms-title" placeholder="D&eacute;veloppeur Fullstack" oninput="onCmsChange('title', this.value)">
+                </div>
+                <div class="cms-field">
+                    <label>Photo de profil (URL)</label>
+                    <input type="text" id="cms-photo" placeholder="https://..." oninput="onCmsChange('photo', this.value)">
+                </div>
+                <div class="cms-field">
+                    <label>Biographie</label>
+                    <textarea id="cms-bio" placeholder="Votre bio ici..." oninput="onCmsChange('bio', this.value)"></textarea>
+                </div>
+                <div class="cms-counter">
+                    <div class="cms-counter-text">Personnalisations restantes</div>
+                    <div class="cms-counter-num" id="cms-counter-num">3</div>
+                    <div class="cms-counter-hint">sur 3 gratuites</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ── TEMPLATE DATA ──
+const TEMPLATES = [
+    { id:'01', slug:'01-terminal-craft', name:'Terminal Craft', cat:'dev', target:'Developpeurs & Tech', desc:'Style terminal / IDE reactif & typewriter CLI', price:39 },
+    { id:'02', slug:'02-blueprint', name:'Blueprint', cat:'dev', target:'Developpeurs & Tech', desc:'Architecture logicielle & design system technique', price:39 },
+    { id:'03', slug:'03-motion-stack', name:'Motion Stack', cat:'dev', target:'Developpeurs & Tech', desc:'Animations fluides & stack technologique moderne', price:39 },
+    { id:'04', slug:'04-quiet-system', name:'Quiet System', cat:'exec', target:'Executifs & Consultants', desc:'Minimalisme radical, typographie serree & tons neutres', price:39 },
+    { id:'05', slug:'05-gallery-wall', name:'Gallery Wall', cat:'design', target:'Designers & Artistes', desc:'Mosaique visuelle de projets & photographie editoriale', price:39 },
+];
+
+// ── RENDER CARDS ──
+function renderCards(filter) {
+    const grid = document.getElementById('template-grid');
+    const list = filter === 'all' ? TEMPLATES : TEMPLATES.filter(t => t.cat === filter);
+    grid.innerHTML = list.map((t, i) => `
+        <div class="template-card" data-cat="${t.cat}">
+            <div class="card-preview">
+                <iframe src="../templates/${t.slug}/index.html" scrolling="no" tabindex="-1"
+                    sandbox="allow-scripts allow-same-origin allow-top-navigation allow-popups" loading="lazy"></iframe>
+                <div class="card-preview-overlay"></div>
+            </div>
+            <div class="card-body">
+                <div class="card-target">${t.target}</div>
+                <h3 class="card-name">${t.id}. ${t.name}</h3>
+                <p class="card-desc">${t.desc}</p>
+                <div class="card-footer">
+                    <span class="card-price">${t.price} $</span>
+                    <div class="card-btns">
+                        <a href="sandbox.html?t=${t.slug}" class="btn-sm btn-preview" target="_blank">Voir</a>
+                        <a href="https://maketou.com/kadre" target="_blank" class="btn-sm btn-order">Acheter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterTemplates(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCards(cat);
+}
+
+// ── CMS MODAL ──
+let cmsChanges = 0;
+const MAX_FREE_CHANGES = 3;
+
+function openCmsModal(slug, name) {
+    const modal = document.getElementById('cms-modal');
+    const frame = document.getElementById('cms-iframe');
+    document.getElementById('cms-modal-name').textContent = name;
+
+    // Load saved changes count
+    cmsChanges = parseInt(localStorage.getItem('cms_changes_' + slug) || '0');
+    updateCounter();
+
+    frame.src = '../templates/' + slug + '/index.html';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCmsModal() {
+    const modal = document.getElementById('cms-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    document.getElementById('cms-iframe').src = '';
+}
+
+function onCmsChange(field, value) {
+    if (cmsChanges >= MAX_FREE_CHANGES) return;
+    cmsChanges++;
+    const slug = document.getElementById('cms-iframe').src.split('/').slice(-2)[0];
+    localStorage.setItem('cms_changes_' + slug, cmsChanges);
+    updateCounter();
+
+    // Send value to iframe
+    const frame = document.getElementById('cms-iframe');
+    if (frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: 'cms-preview', field, value }, '*');
+    }
+}
+
+function updateCounter() {
+    const remaining = Math.max(0, MAX_FREE_CHANGES - cmsChanges);
+    document.getElementById('cms-counter-num').textContent = remaining;
+    if (remaining === 0) {
+        document.getElementById('cms-lock').classList.add('active');
+    }
+}
+
+// ── NAVBAR ──
+window.addEventListener('scroll', () => {
+    document.getElementById('main-navbar').classList.toggle('scrolled', window.scrollY > 20);
+});
+document.getElementById('hamburger-btn').addEventListener('click', function() {
+    document.getElementById('nav-links').classList.toggle('open');
+    this.classList.toggle('active');
+});
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── INIT ──
+renderCards('all');
+
+// Close modal on Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCmsModal(); });
+</script>
+<script src="assets/js/three.min.js"></script>
+<script src="assets/js/webgl-ocean-network.js"></script>
+</body>
+</html>
