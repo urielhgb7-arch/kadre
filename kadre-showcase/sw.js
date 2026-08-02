@@ -1,5 +1,5 @@
 /* KADRE — Service Worker */
-const CACHE = 'kadre-v1';
+const CACHE = 'kadre-v2';
 const PRECACHE = [
   './',
   './index.html',

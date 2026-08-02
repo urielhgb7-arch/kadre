@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://urielhgb7-arch.github.io/kadre/sitemap.xml
