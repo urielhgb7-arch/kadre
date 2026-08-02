@@ -1,0 +1,145 @@
+﻿<!--
+============================================================================
+⚠️ AVERTISSEMENT LEGAL : LICENCE INDIVIDUELLE STRICTEMENT PERSONNELLE
+============================================================================
+Ce code source (HTML, CSS, JS) est protégé par les lois sur le droit d'auteur.
+❌ REVENTE INTERDITE
+❌ PARTAGE INTERDIT (Même à titre gratuit)
+❌ REDISTRIBUTION INTERDITE
+
+L'utilisation de ce fichier est strictement réservée à l'acheteur original.
+Toute violation entraînera des poursuites judiciaires immédiates.
+============================================================================
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compétences — Terminal Craft</title>
+    <script>
+try{var _d=JSON.parse(localStorage.getItem('portfolio_custom_config_v4')),_t=_d&&_d.theme;if(_t){var _r=document.documentElement;
+['bgPrimary','bgSecondary','bgTertiary','accentPrimary','accentSecondary','textPrimary','textSecondary','borderColor','borderRadius','layoutWidth','fontFamily'].forEach(function(k){if(_t[k])_r.style.setProperty('--'+k.replace(/([A-Z])/g,'-$1').toLowerCase(),_t[k])});
+if(_t.navbarSticky!==undefined){var _h=document.querySelector('header,.navbar,.terminal-header,.header');if(_h){_h.style.position=_t.navbarSticky?'sticky':'relative';_h.style.top=_t.navbarSticky?'0':'';}}
+if(_t.customAnim){for(var _k in _t.customAnim)_r.style.setProperty('--'+_k,_t.customAnim[_k]);}}
+}catch(e){}</script>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css?v=2.1">
+    <link rel="stylesheet" href="../css/animations.css?v=2.1">
+
+    
+
+    <!-- PREVENT THEME FLASH -->
+    <script>
+        (function(){
+            try {
+                var urlParams = new URLSearchParams(window.location.search);
+                var urlTheme = urlParams.get('theme');
+                if(urlTheme) {
+                    localStorage.setItem('kadre_theme_mode', urlTheme);
+                }
+                var m = urlTheme || localStorage.getItem('kadre_theme_mode') || 'system';
+                if(m === 'system') {
+                    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.setAttribute('data-theme-mode', 'dark');
+                    } else {
+                        document.documentElement.setAttribute('data-theme-mode', 'light');
+                    }
+                } else {
+                    document.documentElement.setAttribute('data-theme-mode', m);
+                }
+            } catch(e) {}
+        })();
+    </script>
+
+    <!-- KADRE EMPTY STATE CSS -->
+    <style>
+        section:has(#projects-preview:empty),
+        section:has(#projects-container:empty),
+        section:has(#skills-preview:empty),
+        section:has(#skills-container:empty),
+        section:has(#experience-preview:empty),
+        section:has(#experience-container:empty),
+        section:has(#about-preview:empty),
+        .terminal-block:has(#projects-preview:empty),
+        .terminal-block:has(#skills-preview:empty),
+        .content-section:has(#projects-container:empty) {
+            display: none !important;
+        }
+    </style>
+</head>
+<body data-theme="terminal-craft">
+    <canvas id="matrix-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.6;"></canvas>
+    <header class="terminal-header">
+        <div class="header-left">
+            <div class="window-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+            </div>
+            <!-- LE TRIPLE-CLIC ICI OUVRE LE CMS ADMIN -->
+            <a href="../index.html" class="nav-logo terminal-title" id="nav-logo"><span id="logo-title">
+                <span id="prompt-user">votre-username</span>@<span id="prompt-host">localhost</span>:~$
+            </span></a>
+        <button class="hamburger" id="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    <nav class="terminal-nav nav-links">
+            <a href="../index.html" class="nav-link">./accueil.sh</a>
+            <a href="apropos.html" class="nav-link">./apropos.md</a>
+            <a href="projets.html" class="nav-link">./projets/</a>
+            <a href="competences.html" class="nav-link active">./skills.json</a>
+            <a href="contact.html" class="nav-link">./contact.py</a>
+        </nav>
+    </header>
+    <main class="page-content">
+        <section class="terminal-block fade-in-up">
+            <div class="block-header"><span class="block-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -0.125em; margin-right: 0.25em;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></span><span class="block-title">cat ./skills.json | jq '.'</span></div>
+            <div class="block-body" id="skills-container"></div>
+        </section>
+    </main>
+    <footer class="terminal-footer"><div class="footer-inner"><span class="footer-prompt">$</span> exit 0 — © 2026 <span id="footer-name"></span> <span class="footer-vouh">| BY VOUH DIGITAL</span></div></footer>
+    <script src="../core/supabase-client.js?v=2.1"></script><script src="../core/data-sync.js?v=2.1"></script><script src="../core/setup-wizard.js?v=2.1"></script><script src="../core/auth.js?v=2.1"></script>
+    
+        <script src="../js/portfolio.js?v=2.1"></script>
+    <!-- GSAP & Lenis -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js?v=2.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js?v=2.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js?v=2.1"></script>
+    <script src="../js/matrix-snake.js?v=2.1"></script>
+    
+
+    <!-- THEME SWITCHER WIDGET -->
+    <div class="kadre-theme-switcher">
+        <div class="theme-active-indicator"></div>
+        <button class="theme-btn" data-mode="light" aria-label="Mode Clair" title="Clair">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+        <button class="theme-btn" data-mode="system" aria-label="Mode Système" title="Auto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        </button>
+        <button class="theme-btn" data-mode="dark" aria-label="Mode Sombre" title="Sombre">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </div>
+
+
+    <script src="../js/hacker-text.js"></script>
+<script src="../js/ai-companion.js"></script>
+<script>
+    setTimeout(function() {
+        var spinner = document.getElementById('loading-spinner');
+        if(spinner) spinner.style.display = 'none';
+        document.documentElement.style.visibility = 'visible';
+        document.body.style.visibility = 'visible';
+        document.querySelectorAll('.fade-in-up').forEach(function(el) {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
+    }, 2000);
+    </script>
+    <!-- 3D Tesseract Background -->
+    <div id="tesseract-wrap" style="position:fixed; right:40px; top:50%; transform:translateY(-50%); z-index:1; opacity:0.6; pointer-events:none;"></div>
+    <script src="../js/tesseract.js"></script>
+</body>
+</html>

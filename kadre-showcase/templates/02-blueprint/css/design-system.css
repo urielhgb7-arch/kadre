@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Space+Grotesk:wght@300;400;600;700&display=swap');
+
+/* ==========================================
+   02 — BLUEPRINT : DESIGN SYSTEM
+   ========================================== */
+:root {
+    /* Midnight Cyber Palette */
+    --bg-base: hsl(222, 47%, 5%);
+    --bg-surface: hsl(222, 35%, 9%);
+    --bg-elevated: hsl(222, 25%, 13%);
+    --accent-1: hsl(187, 100%, 50%); /* Cyan électrique */
+    --accent-2: hsl(271, 91%, 65%); /* Violet néon */
+    --text-1: hsl(0, 0%, 96%);
+    --text-2: hsl(222, 20%, 60%);
+    --text-3: hsl(222, 15%, 40%);
+    --border: rgba(255, 255, 255, 0.07);
+    --border-focus: rgba(255, 255, 255, 0.15);
+    
+    /* Gradients */
+    --glow-cyan: 0 0 20px rgba(0, 255, 255, 0.2);
+    --glow-violet: 0 0 20px rgba(157, 78, 221, 0.2);
+    
+    /* Typography */
+    --font-sans: 'Space Grotesk', sans-serif;
+    --font-mono: 'Fira Code', monospace;
+    
+    /* Structure */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Global Resets */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-2);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-1);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+a {
+    color: var(--accent-1);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--text-1);
+    text-shadow: var(--glow-cyan);
+}

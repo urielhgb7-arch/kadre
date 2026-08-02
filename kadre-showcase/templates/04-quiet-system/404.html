@@ -1,0 +1,77 @@
+<!--
+============================================================================
+⚠️ AVERTISSEMENT LEGAL : LICENCE INDIVIDUELLE STRICTEMENT PERSONNELLE
+============================================================================
+Ce code source (HTML, CSS, JS) est protégé par les lois sur le droit d'auteur.
+❌ REVENTE INTERDITE
+❌ PARTAGE INTERDIT (Même à titre gratuit)
+❌ REDISTRIBUTION INTERDITE
+
+L'utilisation de ce fichier est strictement réservée à l'acheteur original.
+Toute violation entraînera des poursuites judiciaires immédiates.
+============================================================================
+-->
+<!DOCTYPE html><html lang="fr"><head><style id="glitch-guard">html { visibility: hidden; }</style><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>404 — QUIET SYSTEM</title>
+    <script>
+try{var _d=JSON.parse(localStorage.getItem('portfolio_custom_config_v4')),_t=_d&&_d.theme;if(_t){var _r=document.documentElement;
+['bgPrimary','bgSecondary','bgTertiary','accentPrimary','accentSecondary','textPrimary','textSecondary','borderColor','borderRadius','layoutWidth','fontFamily'].forEach(function(k){if(_t[k])_r.style.setProperty('--'+k.replace(/([A-Z])/g,'-$1').toLowerCase(),_t[k])});
+if(_t.navbarSticky!==undefined){var _h=document.querySelector('header,.navbar,.terminal-header,.header');if(_h){_h.style.position=_t.navbarSticky?'sticky':'relative';_h.style.top=_t.navbarSticky?'0':'';}}
+if(_t.customAnim){for(var _k in _t.customAnim)_r.style.setProperty('--'+_k,_t.customAnim[_k]);}}
+}catch(e){}document.documentElement.style.visibility="visible";</script><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#08090A;color:#F4F4F5;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;padding:20px}.container{max-width:480px}.err{font-family:'Space Grotesk',sans-serif;font-size:5rem;font-weight:800;color:#A1A1AA;margin-bottom:4px;line-height:1}.sub{font-family:'Space Grotesk',sans-serif;font-size:0.9rem;color:#A1A1AA;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:20px}.msg{color:#A1A1AA;margin-bottom:32px;font-size:0.95rem;line-height:1.6}.btn{display:inline-block;padding:13px 30px;background:#A1A1AA;color:#000;text-decoration:none;font-weight:700;border-radius:10px;font-family:'Space Grotesk',sans-serif;transition:transform 0.2s,box-shadow 0.2s}.btn:hover{transform:translateY(-2px)}</style>
+    
+
+    <!-- PREVENT THEME FLASH -->
+    <script>
+        (function(){
+            try {
+                var urlParams = new URLSearchParams(window.location.search);
+                var urlTheme = urlParams.get('theme');
+                if(urlTheme) {
+                    localStorage.setItem('kadre_theme_mode', urlTheme);
+                }
+                var m = urlTheme || localStorage.getItem('kadre_theme_mode') || 'system';
+                if(m === 'system') {
+                    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.setAttribute('data-theme-mode', 'dark');
+                    } else {
+                        document.documentElement.setAttribute('data-theme-mode', 'light');
+                    }
+                } else {
+                    document.documentElement.setAttribute('data-theme-mode', m);
+                }
+            } catch(e) {}
+        })();
+    </script>
+
+    <!-- KADRE EMPTY STATE CSS -->
+    <style>
+        section:has(#projects-preview:empty),
+        section:has(#projects-container:empty),
+        section:has(#skills-preview:empty),
+        section:has(#skills-container:empty),
+        section:has(#experience-preview:empty),
+        section:has(#experience-container:empty),
+        section:has(#about-preview:empty),
+        .terminal-block:has(#projects-preview:empty),
+        .terminal-block:has(#skills-preview:empty),
+        .content-section:has(#projects-container:empty) {
+            display: none !important;
+        }
+    </style>
+</head><body><div class="container"><div class="err">404</div><div class="sub>PAGE NOT FOUND</div><div class="msg">La page que vous cherchez n'existe pas ou a été déplacée.</div><a href="index.html" class="btn">Retour à l'accueil</a></div>
+    <!-- THEME SWITCHER WIDGET -->
+    <div class="kadre-theme-switcher">
+        <div class="theme-active-indicator"></div>
+        <button class="theme-btn" data-mode="light" aria-label="Mode Clair" title="Clair">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+        <button class="theme-btn" data-mode="system" aria-label="Mode Système" title="Auto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        </button>
+        <button class="theme-btn" data-mode="dark" aria-label="Mode Sombre" title="Sombre">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </div>
+
+
+    </body></html>
