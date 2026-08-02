@@ -7,7 +7,12 @@
     if (!canvas || typeof THREE === 'undefined') return;
 
     // ── Renderer ──────────────────────────────────────────────────────────
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
+    var renderer = new THREE.WebGLRenderer({ 
+        canvas: canvas, 
+        antialias: false, 
+        alpha: false,
+        powerPreference: "high-performance"
+    });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x060608, 1);
@@ -148,7 +153,7 @@
     camera.position.set(0, 5, 28);
     camera.lookAt(0, 0, 0);
 
-    var OCEAN_SEG = 80;
+    var OCEAN_SEG = 60;
     var oceanGeo = new THREE.PlaneGeometry(100, 100, OCEAN_SEG, OCEAN_SEG);
     oceanGeo.rotateX(-Math.PI / 2.8);
 
@@ -173,7 +178,7 @@
     // ══════════════════════════════════════════════════════════════════════
     // LAYER 3 — GEOMETRIC NETWORK
     // ══════════════════════════════════════════════════════════════════════
-    var NODE_COUNT = 60;
+    var NODE_COUNT = 40;
     var EDGE_DIST = 7;
     var nodePos = [];
     for (var n = 0; n < NODE_COUNT; n++) {
@@ -229,7 +234,6 @@
 
     // ── Animation Loop ────────────────────────────────────────────────────
     function animate() {
-        requestAnimationFrame(animate);
         var t = clock.getElapsedTime();
 
         // Liquid metal uniforms
@@ -264,7 +268,22 @@
         renderer.clearDepth();
         renderer.render(scene, camera);
     }
-    animate();
+
+    // Pause animation when tab is hidden (save CPU/GPU)
+    var animId;
+    function animateLoop() {
+        animId = requestAnimationFrame(animateLoop);
+        animate();
+    }
+    animateLoop();
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            cancelAnimationFrame(animId);
+        } else {
+            animateLoop();
+        }
+    });
 
     // ── Resize ────────────────────────────────────────────────────────────
     window.addEventListener('resize', function() {

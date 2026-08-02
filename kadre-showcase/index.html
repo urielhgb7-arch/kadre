@@ -7,7 +7,18 @@
     <meta name="description" content="Découvrez 15 designs premium pour portfolio. Personnalisable sans code, avec CMS intégré et hébergement gratuit.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload critical fonts -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/spacegrotesk/v17/omkz0em1hGSmf7PTbcW3HBN3nly.woff2">
+    <!-- Preload critical assets -->
+    <link rel="preload" as="script" href="assets/js/three.min.js">
+    <link rel="preload" as="script" href="assets/js/webgl-ocean-network.js">
+    <link rel="preload" as="style" href="assets/css/style.css">
+    <!-- Fonts with font-display: swap -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Async load design system CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="assets/css/style.css"></noscript>
     <style>
         :root {
             --bg-base: hsl(222, 47%, 5%);
@@ -841,7 +852,15 @@ renderCards('all');
 // Close modal on Escape
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCmsModal(); });
 </script>
-<script src="assets/js/three.min.js"></script>
-<script src="assets/js/webgl-ocean-network.js"></script>
+<script src="assets/js/three.min.js" defer></script>
+<script src="assets/js/webgl-ocean-network.js" defer></script>
+<script>
+// Service Worker — offline cache + faster reload
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js').catch(function() {});
+    });
+}
+</script>
 </body>
 </html>
