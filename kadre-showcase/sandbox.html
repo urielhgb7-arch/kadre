@@ -121,7 +121,7 @@
 
         /* CUSTOMIZE BUTTON — glassmorphic, centered bottom, floats over preview */
         .customize-btn {
-            position: absolute;
+            position: fixed;
             left: 50%;
             bottom: 32px;
             transform: translateX(-50%);
@@ -198,6 +198,7 @@
             padding: 20px;
             transition: padding 0.3s;
         }
+        body[data-theme="light"] .iframe-container { background: #e8ecf4; }
         .iframe-wrapper {
             width: 100%;
             height: 100%;
@@ -232,6 +233,14 @@
             border-radius: 30px;
             border: 8px solid #222;
         }
+        @media (max-width: 768px) {
+            .iframe-container { padding: 12px; }
+            .iframe-wrapper.mobile { width: 320px; height: 700px; }
+            .iframe-wrapper.tablet { width: 100%; max-width: 700px; }
+        }
+        @media (max-width: 380px) {
+            .iframe-wrapper.mobile { width: 100%; height: 80vh; border: 4px solid #222; }
+        }
 
         /* TOOLTIP UX */
         .ux-tooltip {
@@ -261,6 +270,44 @@
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { opacity: 0; }
+        }
+
+        /* ── RESPONSIVE SANDBOX ── */
+        @media (max-width: 768px) {
+            .sandbox-topbar {
+                height: 56px;
+                padding: 0 12px;
+                gap: 8px;
+            }
+            .left-controls { gap: 8px; }
+            .left-controls img { display: none; }
+            .device-btn { padding: 6px 8px; font-size: 0.78rem; }
+            .customize-btn {
+                bottom: 20px;
+                padding: 12px 22px;
+                font-size: 0.88rem;
+            }
+            .ux-tooltip {
+                bottom: 84px;
+                right: 16px;
+                left: 16px;
+                text-align: center;
+                font-size: 0.82rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .device-controls { padding: 3px; }
+            .device-btn { padding: 5px 6px; font-size: 0.7rem; }
+            .buy-btn { padding: 7px 12px; font-size: 0.8rem; }
+            .theme-toggle { width: 32px; height: 32px; }
+            .customize-btn { gap: 8px; }
+        }
+        @media (max-width: 360px) {
+            .sandbox-topbar { padding: 0 8px; gap: 4px; }
+            .back-btn svg { width: 18px; height: 18px; }
+            .device-btn { padding: 5px 4px; font-size: 0.65rem; }
+            .buy-btn { padding: 6px 10px; font-size: 0.75rem; }
+            .customize-btn { bottom: 14px; padding: 11px 18px; font-size: 0.84rem; }
         }
     </style>
 </head>
