@@ -106,6 +106,19 @@ window.setAdminBypassEnabled = function(val) {
 
 document.addEventListener('DOMContentLoaded', () => {
   initCoreAuthListeners();
+
+  // Sandbox "Personnaliser" button → triggers the same gesture as triple-click.
+  // Only active in sandbox/preview so a foreign page can't force-open the CMS in production.
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('sandbox') === 'true' || params.get('preview') === 'true') {
+      window.addEventListener('message', (e) => {
+        if (!e.data || e.data.type !== 'kadre-open-admin') return;
+        handleSecretGestureTrigger();
+      });
+    }
+  } catch(e) { /* silent */ }
+
   // Auto-open admin if bypass enabled and URL secret matches
   try {
     const params = new URLSearchParams(location.search);

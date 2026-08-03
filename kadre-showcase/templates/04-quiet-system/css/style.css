@@ -168,12 +168,14 @@ footer { border-top: 1px solid var(--border-color); padding: 24px; text-align: c
     .nav-links {
         display: none !important;
         position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-        background: var(--bg-primary, #08090A);
+        background: rgba(26, 28, 27, 0.85);
+        backdrop-filter: blur(20px) saturate(140%);
+        -webkit-backdrop-filter: blur(20px) saturate(140%);
         flex-direction: column; align-items: center; justify-content: center;
         gap: 24px; z-index: 199;
     }
     .nav-links.open { display: flex !important; }
-    .nav-link { font-size: 1.2rem; padding: 12px 24px; }
+    .nav-link { font-size: 1.2rem; padding: 12px 24px; color: #ffffff !important; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
 }
 /* Small phones */
 @media (max-width: 480px) {
