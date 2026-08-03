@@ -108,10 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initCoreAuthListeners();
 
   // Sandbox "Personnaliser" button → triggers the same gesture as triple-click.
-  // Only active in sandbox/preview so a foreign page can't force-open the CMS in production.
+  // Only active in sandbox/preview context so a foreign page can't force-open the CMS in production.
   try {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('sandbox') === 'true' || params.get('preview') === 'true') {
+    if (isSandboxContext()) {
       window.addEventListener('message', (e) => {
         if (!e.data || e.data.type !== 'kadre-open-admin') return;
         handleSecretGestureTrigger();
@@ -146,13 +145,32 @@ window.addEventListener('pageshow', (e) => {
   }
 });
 
+/**
+ * Détecte si le template tourne dans un contexte d'aperçu (sandbox kadre-showcase).
+ * Règle basée sur l'emplacement EXACT d'où le fichier est appelé :
+ *  - chargé DANS un iframe (window.self !== window.top) → aperçu (cards/sandbox)
+ *  - OU la page parente est le sandbox/previewer de Kadre
+ *  - OU le paramètre explicite ?sandbox=true / ?preview=true (fallback file://)
+ * Dans ce contexte : triple-clic désactivé, mais bouton "Personnaliser" actif.
+ */
+function isSandboxContext() {
+  try {
+    if (window.self !== window.top) return true;
+  } catch(e) { /* cross-origin iframe: treat as embedded */ return true; }
+  try {
+    const parentHref = String(window.parent.location.href || '').toLowerCase();
+    if (parentHref.includes('sandbox') || parentHref.includes('preview')) return true;
+  } catch(e) { /* silent */ }
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('sandbox') === 'true' || urlParams.get('preview') === 'true';
+}
+
 function initCoreAuthListeners() {
   if (isAuthInitialized) return;
   isAuthInitialized = true;
 
-  // Disable triple-click in sandbox/preview mode
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('sandbox') === 'true' || urlParams.get('preview') === 'true') return;
+  // Disable triple-click in sandbox/preview context (exact location rule)
+  if (isSandboxContext()) return;
 
   let clickCount = 0;
   let clickTimer = null;

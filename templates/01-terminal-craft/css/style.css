@@ -1286,7 +1286,7 @@ body.glitch-mode {
         height: auto !important;
         transform: translateY(-10px) scale(0.97) !important;
         /* Liquid Glass core */
-        background: rgba(13, 17, 23, 0.88) !important;
+        background: rgba(13, 17, 23, 0.97) !important;
         backdrop-filter: blur(40px) saturate(1.8) brightness(1.1) !important;
         -webkit-backdrop-filter: blur(40px) saturate(1.8) brightness(1.1) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;

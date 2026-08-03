@@ -168,7 +168,7 @@ footer { border-top: 1px solid var(--border-color); padding: 24px; text-align: c
     .nav-links {
         display: none !important;
         position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-        background: rgba(26, 28, 27, 0.85);
+        background: rgba(26, 28, 27, 0.96);
         backdrop-filter: blur(20px) saturate(140%);
         -webkit-backdrop-filter: blur(20px) saturate(140%);
         flex-direction: column; align-items: center; justify-content: center;
