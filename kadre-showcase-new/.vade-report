@@ -1,0 +1,44 @@
+## Vercel Web Analytics Installation
+
+Successfully installed and configured Vercel Web Analytics for this Astro project.
+
+### Changes Made
+
+**1. Installed Package:**
+- Added `@astrojs/vercel` adapter package (via npm install)
+
+**2. Modified Files:**
+
+**astro.config.mjs:**
+- Imported the `@astrojs/vercel` adapter
+- Added the Vercel adapter with `webAnalytics: { enabled: true }` configuration
+- This enables automatic tracking of page views and user interactions
+
+**package.json & package-lock.json:**
+- Updated with the new `@astrojs/vercel` dependency
+- Lock file updated to ensure consistent dependency resolution
+
+### Implementation Details
+
+Following the official Astro documentation (https://docs.astro.build/en/guides/integrations-guide/vercel/), I configured the Vercel adapter with Web Analytics enabled. This approach is recommended for Astro projects and automatically injects Vercel's tracking scripts across all pages when deployed to Vercel.
+
+The configuration uses the `webAnalytics: { enabled: true }` option, which is supported by `@astrojs/vercel@3.8.0+` for both serverless and static deployment modes.
+
+### Verification
+
+- ✅ Build completed successfully (`npm run build`)
+- ✅ All pages generated without errors
+- ✅ Vercel adapter properly integrated with the existing Astro configuration
+- ✅ Sitemap integration remains functional
+- ✅ No conflicts with existing integrations
+
+### Next Steps
+
+Once deployed to Vercel:
+1. Enable Web Analytics in the Vercel dashboard (Analytics section)
+2. Verify data collection by checking the browser's Network tab for requests to `/<unique-path>/view`
+3. Monitor analytics data in the Vercel dashboard
+
+### Notes
+
+The .vercel directory (build output) is not staged as it's a build artifact and should remain in .gitignore.

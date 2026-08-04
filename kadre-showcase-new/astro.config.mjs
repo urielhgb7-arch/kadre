@@ -2,10 +2,16 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://kadre-blue.vercel.app',
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true
+    }
+  }),
   integrations: [
     sitemap({
       // Génère automatiquement le sitemap pour toutes les pages statiques
