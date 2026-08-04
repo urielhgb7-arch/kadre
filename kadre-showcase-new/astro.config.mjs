@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kadrify.com',
+  site: 'https://kadre-blue.vercel.app',
   integrations: [
     sitemap({
       // Génère automatiquement le sitemap pour toutes les pages statiques
