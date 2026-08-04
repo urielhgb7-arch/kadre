@@ -551,24 +551,24 @@ html[data-theme-mode="light"] {
         width: 260px !important;
         height: auto !important;
         transform: translateY(-10px) scale(0.97) !important;
-        /* Liquid Glass core */
-        background: rgba(255, 255, 255, 0.04) !important;
-        backdrop-filter: blur(40px) saturate(1.8) brightness(1.1) !important;
-        -webkit-backdrop-filter: blur(40px) saturate(1.8) brightness(1.1) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3) !important;
+        /* Opaque frosted glass — much more readable on mobile */
+        background: rgba(20, 16, 13, 0.92) !important;
+        backdrop-filter: blur(40px) saturate(1.8) brightness(1.05) !important;
+        -webkit-backdrop-filter: blur(40px) saturate(1.8) brightness(1.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.14) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4) !important;
         border-radius: 18px !important;
         padding: 18px 20px !important;
         flex-direction: column !important;
         align-items: flex-start !important;
         justify-content: flex-start !important;
         gap: 4px !important;
-        /* Metal sheen shadow */
+        /* Strong shadow */
         box-shadow: 
-            0 32px 64px rgba(0, 0, 0, 0.5),
-            0 0 0 0.5px rgba(255, 255, 255, 0.06) inset,
-            0 1px 0 0 rgba(255, 255, 255, 0.15) inset !important;
+            0 32px 64px rgba(0, 0, 0, 0.7),
+            0 0 0 0.5px rgba(255, 255, 255, 0.08) inset,
+            0 1px 0 0 rgba(255, 255, 255, 0.18) inset !important;
         /* Animation */
         opacity: 0 !important;
         visibility: hidden !important;
@@ -591,11 +591,24 @@ html[data-theme-mode="light"] {
         font-size: 0.92rem !important;
         letter-spacing: 0.02em !important;
         border-bottom: none !important;
+        color: rgba(255,255,255,0.9) !important;
+        text-shadow: none !important;
         transition: background 0.15s ease, color 0.15s ease !important;
     }
     .nav-links a:hover,
     .nav-link:hover {
-        background: rgba(255, 255, 255, 0.07) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
+    }
+    /* Light mode */
+    [data-theme-mode="light"] .nav-links {
+        background: rgba(255, 252, 248, 0.96) !important;
+        border-color: rgba(0,0,0,0.12) !important;
+        box-shadow: 0 32px 64px rgba(0,0,0,0.18) !important;
+    }
+    [data-theme-mode="light"] .nav-links a,
+    [data-theme-mode="light"] .nav-link {
+        color: var(--text-primary) !important;
     }
 }
 
