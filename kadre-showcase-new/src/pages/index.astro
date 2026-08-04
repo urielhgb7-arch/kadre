@@ -77,7 +77,7 @@ const templatesData = JSON.parse(fs.readFileSync('./src/data/templates.json', 'u
           <p class="text-gray-400 text-lg mb-8">
             Testez vos couleurs, polices et données directement dans notre Sandbox interactive. Ce que vous voyez est ce que vous obtenez. Modifiez les textes en un clic et admirez le résultat en temps réel.
           </p>
-          <button onclick="document.getElementById('sandbox-modal').classList.remove('hidden'); document.getElementById('sandbox-modal').classList.add('flex')" class="inline-flex items-center gap-2 px-6 py-3 font-semibold text-[#00E5FF] border border-[#00E5FF]/30 bg-[#00E5FF]/10 rounded-xl hover:bg-[#00E5FF]/20 transition-all hover:shadow-[0_0_20px_rgba(0,229,255,0.2)]">
+          <button onclick="openSandboxModal()" class="inline-flex items-center gap-2 px-6 py-3 font-semibold text-[#00E5FF] border border-[#00E5FF]/30 bg-[#00E5FF]/10 rounded-xl hover:bg-[#00E5FF]/20 transition-all hover:shadow-[0_0_20px_rgba(0,229,255,0.2)]">
             Ouvrir la Sandbox
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </button>
@@ -134,28 +134,75 @@ const templatesData = JSON.parse(fs.readFileSync('./src/data/templates.json', 'u
     </section>
   </main>
   
-  <!-- Sandbox Selection Modal -->
-  <div id="sandbox-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4">
-    <div class="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl relative">
-      <button onclick="document.getElementById('sandbox-modal').classList.add('hidden'); document.getElementById('sandbox-modal').classList.remove('flex')" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-      
-      <div class="p-8 border-b border-white/10">
-        <h3 class="text-2xl font-bold text-white mb-2 font-heading">Sélectionner un Template</h3>
-        <p class="text-gray-400">Quel design souhaitez-vous tester dans la Sandbox Kadrify ?</p>
+  <!-- Sandbox Selection Modal — Premium Full-Screen Gallery -->
+  <div id="sandbox-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-label="Choisir un template">
+    <!-- Backdrop -->
+    <div id="sandbox-backdrop" class="absolute inset-0 bg-black/85 backdrop-blur-md" onclick="closeSandboxModal()"></div>
+    
+    <!-- Panel -->
+    <div id="sandbox-panel" class="relative z-10 w-full max-w-5xl max-h-[92vh] flex flex-col bg-[#0a0c14] border border-white/10 rounded-3xl shadow-[0_40px_80px_rgba(0,0,0,0.8)] overflow-hidden translate-y-4 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-8 py-6 border-b border-white/8 flex-shrink-0">
+        <div>
+          <div class="flex items-center gap-3 mb-1">
+            <span class="w-2 h-2 rounded-full bg-[#00E5FF] shadow-[0_0_8px_#00E5FF] animate-pulse"></span>
+            <span class="text-xs font-bold uppercase tracking-[0.15em] text-[#00E5FF]">Sandbox Interactive</span>
+          </div>
+          <h3 class="text-2xl font-bold text-white font-heading">Quel template veux-tu tester ?</h3>
+          <p class="text-gray-500 text-sm mt-1">Prévisualise en temps réel avant d'acheter</p>
+        </div>
+        <button onclick="closeSandboxModal()" class="flex items-center justify-center w-10 h-10 rounded-xl border border-white/10 text-gray-500 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all" aria-label="Fermer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
       </div>
-      
-      <div class="p-4 max-h-[60vh] overflow-y-auto">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {templatesData.map((template: any) => (
-            <a href={`/sandbox?template=${template.id}`} class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10 transition-all group">
-              <div class="w-20 h-14 rounded-lg bg-black border border-white/10 overflow-hidden relative">
-                <img src={template.thumbnail} alt={template.name} class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+
+      <!-- Templates Grid -->
+      <div class="overflow-y-auto flex-1 p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {templatesData.map((template: any, index: number) => (
+            <a 
+              href={`/sandbox?template=${template.id}`}
+              class="group relative flex flex-col rounded-2xl bg-gray-900/60 border border-white/6 overflow-hidden hover:border-[#00E5FF]/40 hover:shadow-[0_0_30px_rgba(0,229,255,0.1)] transition-all duration-300 hover:-translate-y-1"
+              style={`animation-delay: ${index * 60}ms`}
+            >
+              <!-- Preview iframe -->
+              <div class="relative aspect-video bg-black overflow-hidden border-b border-white/6">
+                <div class="absolute inset-0 pointer-events-none z-0">
+                  <iframe 
+                    src={`/templates/${template.id}/index.html`}
+                    loading="lazy"
+                    title={`Aperçu ${template.name}`}
+                    class="absolute top-0 left-0 border-none origin-top-left pointer-events-none"
+                    style="width: 200%; height: 200%; transform: scale(0.5);"
+                  ></iframe>
+                  <!-- Overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent opacity-70 group-hover:opacity-30 transition-opacity duration-500"></div>
+                </div>
+                <!-- Hover CTA -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                  <span class="flex items-center gap-2 px-4 py-2 bg-[#00E5FF] text-gray-900 rounded-lg text-sm font-bold shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Tester
+                  </span>
+                </div>
               </div>
-              <div>
-                <h4 class="font-bold text-white group-hover:text-[#00E5FF] transition-colors">{template.name}</h4>
-                <p class="text-xs text-gray-500">{template.tags[0]} / {template.tags[1]}</p>
+
+              <!-- Card body -->
+              <div class="p-4 flex flex-col gap-2 flex-1">
+                <div class="flex flex-wrap gap-1.5 mb-0.5">
+                  {template.tags.slice(0,2).map((tag: string) => (
+                    <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#00E5FF] bg-[#00E5FF]/10 rounded-full border border-[#00E5FF]/20">{tag}</span>
+                  ))}
+                </div>
+                <h4 class="font-bold text-white text-base group-hover:text-[#00E5FF] transition-colors font-heading leading-tight">{template.name}</h4>
+                <p class="text-gray-500 text-xs leading-relaxed line-clamp-2 flex-1">{template.description}</p>
+                <div class="flex items-center justify-between mt-2 pt-2 border-t border-white/6">
+                  <span class="text-xs text-gray-600">{template.price}</span>
+                  <span class="text-xs text-[#00E5FF] flex items-center gap-1 font-medium">
+                    Tester
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </span>
+                </div>
               </div>
             </a>
           ))}
@@ -163,6 +210,35 @@ const templatesData = JSON.parse(fs.readFileSync('./src/data/templates.json', 'u
       </div>
     </div>
   </div>
+
+  <script is:inline>
+    function openSandboxModal() {
+      const modal = document.getElementById('sandbox-modal');
+      const panel = document.getElementById('sandbox-panel');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        panel.style.opacity = '1';
+        panel.style.transform = 'translateY(0)';
+      });
+    }
+    function closeSandboxModal() {
+      const modal = document.getElementById('sandbox-modal');
+      const panel = document.getElementById('sandbox-panel');
+      panel.style.opacity = '0';
+      panel.style.transform = 'translateY(16px)';
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 300);
+    }
+    // Keyboard ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSandboxModal();
+    });
+  </script>
+
+
   
   <Footer />
 </Layout>

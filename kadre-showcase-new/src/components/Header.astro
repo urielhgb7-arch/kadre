@@ -1,8 +1,6 @@
 ---
 const links = [
-  { href: "/", label: "Templates" },
-  { href: "#features", label: "Fonctionnalités" },
-  { href: "#pricing", label: "Prix" },
+  { href: "/#templates", label: "Templates" },
 ];
 ---
 
@@ -21,41 +19,38 @@ const links = [
     </nav>
     
     <div class="flex items-center gap-3">
-      <!-- Theme Switcher -->
-      <div class="theme-switcher-wrap relative" id="theme-switcher-wrap">
-        <button 
-          id="theme-switcher-btn"
-          aria-label="Changer de thème"
-          title="Changer de thème (Clair / Sombre / Système)"
-          class="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-200 text-sm font-medium"
-        >
-          <span id="theme-switcher-icon" class="flex items-center">
-            <!-- filled dynamically -->
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-          </span>
-          <span id="theme-switcher-label" class="hidden sm:inline text-xs">Sombre</span>
+      <!-- Theme Switcher — Modern 3-state pill (21st.dev inspired) -->
+      <div class="theme-pill" id="theme-pill" role="group" aria-label="Thème">
+        <button class="theme-pill-btn" data-theme="light" id="tp-light" aria-label="Thème clair" title="Clair">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
         </button>
-
-        <!-- Dropdown -->
-        <div id="theme-dropdown" class="hidden absolute right-0 top-full mt-2 w-44 bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-xl overflow-hidden z-50">
-          <button data-theme="dark" class="theme-option flex items-center gap-3 w-full px-4 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-white transition-colors">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            Sombre
-          </button>
-          <button data-theme="light" class="theme-option flex items-center gap-3 w-full px-4 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-white transition-colors">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            Clair
-          </button>
-          <button data-theme="system" class="theme-option flex items-center gap-3 w-full px-4 py-3 text-sm text-gray-300 hover:bg-white/5 hover:text-white transition-colors">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            Système
-          </button>
-        </div>
+        <button class="theme-pill-btn" data-theme="system" id="tp-system" aria-label="Thème système" title="Système">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </button>
+        <button class="theme-pill-btn" data-theme="dark" id="tp-dark" aria-label="Thème sombre" title="Sombre">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <!-- Sliding active indicator -->
+        <span class="theme-pill-indicator" id="tp-indicator"></span>
       </div>
 
-      <a href="#templates" class="hidden md:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-gray-900 bg-gradient-to-br from-[#00E5FF] to-[#80F2FF] rounded-lg hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all">
+      <a href="/#templates" class="hidden md:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-gray-900 bg-gradient-to-br from-[#00E5FF] to-[#80F2FF] rounded-lg hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all">
         Voir les templates
       </a>
       
@@ -68,26 +63,82 @@ const links = [
 
   <!-- Mobile Nav -->
   <div id="mobile-nav" class="hidden absolute top-[72px] left-0 right-0 bg-gray-950/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex-col gap-2 md:hidden">
-    {links.map((link) => (
-      <a href={link.href} class="block px-4 py-3 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-        {link.label}
-      </a>
-    ))}
-    <a href="#templates" class="mt-2 block px-4 py-3 text-sm font-semibold text-center text-gray-900 bg-[#00E5FF] rounded-lg">
+    <a href="/#templates" class="block px-4 py-3 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Templates</a>
+    <a href="/#templates" class="mt-2 block px-4 py-3 text-sm font-semibold text-center text-gray-900 bg-[#00E5FF] rounded-lg">
       Voir les templates
     </a>
   </div>
 </header>
 
+<style>
+/* ── THEME PILL ── */
+.theme-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 3px;
+  backdrop-filter: blur(8px);
+}
+.theme-pill-btn {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.theme-pill-btn:hover { color: rgba(255,255,255,0.8); }
+.theme-pill-btn.active { color: #fff; }
+
+/* Sliding indicator */
+.theme-pill-indicator {
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+  left: 3px;
+  width: 32px;
+  height: 28px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), background 0.2s;
+  pointer-events: none;
+}
+/* Position: 0=light, 1=system, 2=dark */
+.theme-pill[data-active="light"] .theme-pill-indicator { transform: translateX(0); }
+.theme-pill[data-active="system"] .theme-pill-indicator { transform: translateX(35px); }
+.theme-pill[data-active="dark"] .theme-pill-indicator { transform: translateX(70px); }
+
+/* Light mode pill adaptation */
+html.light .theme-pill {
+  background: rgba(15,23,42,0.06);
+  border-color: rgba(15,23,42,0.12);
+}
+html.light .theme-pill-btn { color: rgba(15,23,42,0.4); }
+html.light .theme-pill-btn:hover { color: rgba(15,23,42,0.8); }
+html.light .theme-pill-btn.active { color: #0f172a; }
+html.light .theme-pill-indicator {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(15,23,42,0.12);
+  box-shadow: 0 2px 8px rgba(15,23,42,0.1);
+}
+</style>
+
 <script is:inline>
 (function() {
-  // ── ICONS ──
-  const ICONS = {
-    dark: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
-    light: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
-    system: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'
-  };
-  const LABELS = { dark: 'Sombre', light: 'Clair', system: 'Système' };
+  const ORDER = ['light', 'system', 'dark'];
 
   function resolveTheme(t) {
     if (t === 'system') return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -100,16 +151,14 @@ const links = [
     document.documentElement.classList.add(resolved);
     try { localStorage.setItem('kadrify_theme', theme); } catch(e) {}
 
-    const icon = document.getElementById('theme-switcher-icon');
-    const label = document.getElementById('theme-switcher-label');
-    if (icon) icon.innerHTML = ICONS[theme] || ICONS.dark;
-    if (label) label.textContent = LABELS[theme] || 'Sombre';
-
-    // Update active state in dropdown
-    document.querySelectorAll('.theme-option').forEach(btn => {
-      btn.classList.toggle('text-[#00E5FF]', btn.dataset.theme === theme);
-      btn.classList.toggle('font-semibold', btn.dataset.theme === theme);
-    });
+    // Update pill state
+    const pill = document.getElementById('theme-pill');
+    if (pill) {
+      pill.dataset.active = theme;
+      pill.querySelectorAll('.theme-pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === theme);
+      });
+    }
   }
 
   // Load saved theme
@@ -123,33 +172,26 @@ const links = [
   });
 
   document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('theme-switcher-btn');
-    const dropdown = document.getElementById('theme-dropdown');
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const mobileNav = document.getElementById('mobile-nav');
 
-    // Toggle dropdown
-    btn && btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdown.classList.toggle('hidden');
-    });
-
-    // Close dropdown on outside click
-    document.addEventListener('click', () => dropdown && dropdown.classList.add('hidden'));
-    dropdown && dropdown.addEventListener('click', e => e.stopPropagation());
-
-    // Theme options
-    document.querySelectorAll('.theme-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        applyTheme(opt.dataset.theme);
-        dropdown.classList.add('hidden');
-      });
+    // Pill buttons
+    document.querySelectorAll('.theme-pill-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
     });
 
     // Mobile menu toggle
     mobileBtn && mobileBtn.addEventListener('click', () => {
       mobileNav.classList.toggle('hidden');
       mobileNav.classList.toggle('flex');
+    });
+
+    // Close mobile menu on link click
+    mobileNav && mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileNav.classList.add('hidden');
+        mobileNav.classList.remove('flex');
+      });
     });
   });
 })();
