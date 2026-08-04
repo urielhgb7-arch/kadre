@@ -1,0 +1,265 @@
+<!--
+============================================================================
+⚠️ AVERTISSEMENT LEGAL : LICENCE INDIVIDUELLE STRICTEMENT PERSONNELLE
+============================================================================
+Ce code source (HTML, CSS, JS) est protégé par les lois sur le droit d'auteur.
+❌ REVENTE INTERDITE
+❌ PARTAGE INTERDIT (Même à titre gratuit)
+❌ REDISTRIBUTION INTERDITE
+
+L'utilisation de ce fichier est strictement réservée à l'acheteur original.
+Toute violation entraînera des poursuites judiciaires immédiates.
+============================================================================
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Craft — Portfolio Développeur</title>
+    <script>
+try{var _d=JSON.parse(localStorage.getItem('portfolio_custom_config_v4')),_t=_d&&_d.theme;if(_t){var _r=document.documentElement;
+['bgPrimary','bgSecondary','bgTertiary','accentPrimary','accentSecondary','textPrimary','textSecondary','borderColor','borderRadius','layoutWidth','fontFamily'].forEach(function(k){if(_t[k])_r.style.setProperty('--'+k.replace(/([A-Z])/g,'-$1').toLowerCase(),_t[k])});
+if(_t.navbarSticky!==undefined){var _h=document.querySelector('header,.navbar,.terminal-header,.header');if(_h){_h.style.position=_t.navbarSticky?'sticky':'relative';_h.style.top=_t.navbarSticky?'0':'';}}
+if(_t.customAnim){for(var _k in _t.customAnim)_r.style.setProperty('--'+_k,_t.customAnim[_k]);}}
+}catch(e){}</script>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="Portfolio développeur au style terminal — Matrix rain, snake game et ambiance coding">
+    <meta property="og:title" content="Terminal Craft — Portfolio Développeur">
+    <meta property="og:description" content="Portfolio développeur au style terminal — Matrix rain, snake game et ambiance coding">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=2.1">
+    <link rel="stylesheet" href="css/animations.css?v=2.1">
+
+    
+
+    <!-- PREVENT THEME FLASH -->
+    <script>
+        (function(){
+            try {
+                var urlParams = new URLSearchParams(window.location.search);
+                var urlTheme = urlParams.get('theme');
+                if(urlTheme) {
+                    localStorage.setItem('kadre_theme_mode', urlTheme);
+                }
+                var m = urlTheme || localStorage.getItem('kadre_theme_mode') || 'system';
+                if(m === 'system') {
+                    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.setAttribute('data-theme-mode', 'dark');
+                    } else {
+                        document.documentElement.setAttribute('data-theme-mode', 'light');
+                    }
+                } else {
+                    document.documentElement.setAttribute('data-theme-mode', m);
+                }
+            } catch(e) {}
+        })();
+    </script>
+
+    <!-- KADRE EMPTY STATE CSS -->
+    <style>
+        section:has(#projects-preview:empty),
+        section:has(#projects-container:empty),
+        section:has(#skills-preview:empty),
+        section:has(#skills-container:empty),
+        section:has(#experience-preview:empty),
+        section:has(#experience-container:empty),
+        section:has(#about-preview:empty),
+        .terminal-block:has(#projects-preview:empty),
+        .terminal-block:has(#skills-preview:empty),
+        .content-section:has(#projects-container:empty) {
+            display: none !important;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.min.js"></script>
+</head>
+<body data-theme="terminal-craft">
+    <div id="loading-spinner" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg-primary, #08090A); z-index:9999; display:flex; align-items:center; justify-content:center; transition: opacity 0.5s;">
+        <div class="loader-content">
+            <div class="loader-text" id="loader-text-container"></div>
+            <div class="loader-by">BY VOUH DIGITAL</div>
+        </div>
+    </div>
+    <canvas id="matrix-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.6;"></canvas>
+
+    <!-- HEADER — BARRE DE FENÊTRE TERMINAL -->
+    <header class="terminal-header">
+        <div class="header-left">
+            <div class="window-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+            </div>
+            <!-- LE TRIPLE-CLIC ICI OUVRE LE CMS ADMIN -->
+            <a href="index.html" class="nav-logo terminal-title" id="nav-logo"><span id="logo-title">
+                <span id="prompt-user">votre-username</span>@<span id="prompt-host">localhost</span>:~$
+            </span></a>
+        
+        </div>
+    <nav class="terminal-nav nav-links">
+            <a href="index.html" class="nav-link active">./accueil.sh</a>
+            <a href="pages/apropos.html" class="nav-link">./apropos.md</a>
+            <a href="pages/projets.html" class="nav-link">./projets/</a>
+            <a href="pages/competences.html" class="nav-link">./skills.json</a>
+            <a href="pages/contact.html" class="nav-link">./contact.py</a>
+        </nav>
+        <button class="hamburger" id="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="page-content">
+        <section class="hero-section fade-in-up">
+        <div class="hero-text-col" style="max-width:700px;">
+            <div class="terminal-prompt-line">
+                <span class="prompt-symbol">$</span>
+                <span id="hero-cmd" class="cli-command">./greet --name="Votre Nom"</span>
+            </div>
+
+            <h1 class="hero-name glitch-text" id="hero-name">Votre Nom</h1>
+
+            <div class="hero-subtitle-line">
+                <span class="comment">// </span>
+                <span id="hero-title-type" class="typewriter-target"></span>
+                <span class="blinking-cursor">█</span>
+            </div>
+
+            <div class="hero-actions">
+                <a href="pages/projets.html" class="btn-terminal primary" id="hero-cta">
+                    <span class="btn-prefix">$</span> ./voir-projets.sh
+                </a>
+                <a href="pages/contact.html" class="btn-terminal secondary">
+                    <span class="btn-prefix">$</span> ./contact.sh
+                </a>
+            </div>
+        </div><!-- .hero-text-col -->
+
+        </section>
+
+        <!-- 3D Tesseract Background (right side) -->
+        <div id="tesseract-wrap" style="position:fixed; right:40px; top:50%; transform:translateY(-50%); z-index:1; opacity:0.6; pointer-events:none;"></div>
+
+        <!-- PREVIEW BIO -->
+        <section class="terminal-block fade-in-up delay-1">
+            <div class="block-header">
+                <span class="block-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -0.125em; margin-right: 0.25em;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></span>
+                <span class="block-title">cat README.md</span>
+                <span class="block-badge">v2.0</span>
+            </div>
+            <div style="display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;">
+                <img id="about-photo" src="" alt="Photo" class="about-photo">
+                <div class="block-body" id="about-preview" style="flex:1;">
+                    <p class="code-line"><span class="line-num">1</span> Bienvenue sur mon terminal interactif.</p>
+                    <p class="code-line"><span class="line-num">2</span> Triple-cliquez sur le prompt ci-dessus pour configurer.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PREVIEW PROJETS -->
+        <section class="terminal-block fade-in-up delay-2">
+            <div class="block-header">
+                <span class="block-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -0.125em; margin-right: 0.25em;"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></span>
+                <span class="block-title">ls -la ./projets/ | head -3</span>
+            </div>
+            <div class="block-body">
+                <div id="projects-preview" class="projects-grid"></div>
+                <a href="pages/projets.html" class="view-all-link">$ cd ./projets/ — Voir tous les projets ➔</a>
+            </div>
+        </section>
+
+        <!-- PREVIEW SKILLS -->
+        <section class="terminal-block fade-in-up delay-3">
+            <div class="block-header">
+                <span class="block-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -0.125em; margin-right: 0.25em;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></span>
+                <span class="block-title">cat ./skills.json | jq '.top'</span>
+            </div>
+            <div class="block-body">
+                <div id="skills-preview"></div>
+                <a href="pages/competences.html" class="view-all-link">$ cat ./skills.json — Voir toutes les compétences ➔</a>
+            </div>
+        </section>
+
+        <!-- SNAKE GAME (EASTER EGG) -->
+        <section class="terminal-block fade-in-up delay-3">
+            <div class="block-header">
+                <span class="block-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -0.125em; margin-right: 0.25em;"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><line x1="15" y1="13" x2="15.01" y2="13"></line><line x1="18" y1="11" x2="18.01" y2="11"></line><rect x="2" y="6" width="20" height="12" rx="2"></rect></svg></span>
+                <span class="block-title">./play_snake.sh</span>
+                <span class="block-badge" id="snake-score">SCORE: 0</span>
+            </div>
+            <div class="block-body" style="text-align: center;">
+                <div style="position: relative; display: inline-block;">
+                    <canvas id="snake-canvas" width="400" height="300" style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 4px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); max-width: 100%; touch-action: none;"></canvas>
+                    <div id="snake-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--accent-secondary); font-family: var(--font-mono); font-weight: bold; font-size: 1.2rem; cursor: pointer; background: rgba(0,0,0,0.8); padding: 10px 20px; border-radius: 4px; border: 1px solid var(--accent-secondary);">
+                        $ START_GAME
+                    </div>
+                    <div class="snake-dpad" aria-label="Contrôles du jeu">
+                        <button class="snake-dpad-btn" data-snake-dir="up" aria-label="Haut">▲</button>
+                        <button class="snake-dpad-btn" data-snake-dir="left" aria-label="Gauche">◀</button>
+                        <button class="snake-dpad-btn" data-snake-dir="down" aria-label="Bas">▼</button>
+                        <button class="snake-dpad-btn" data-snake-dir="right" aria-label="Droite">▶</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="terminal-footer">
+        <div class="footer-inner">
+            <span class="footer-prompt">$</span>
+            <span>exit 0 — Terminal Craft v2.0 — © 2026 <span id="footer-name">Votre Nom</span> <span class="footer-vouh">| BY VOUH DIGITAL</span></span>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS CORE (SUPABASE AUTH & TRIPLE-CLIC) -->
+    <script src="./core/supabase-client.js?v=2.1"></script>
+    <script src="./core/data-sync.js?v=2.1"></script>
+    <script src="./core/setup-wizard.js?v=2.1"></script>
+    <script src="./core/auth.js?v=2.1"></script>
+    
+        <script src="js/portfolio.js?v=2.1"></script>
+    <!-- GSAP & Lenis -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js?v=2.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js?v=2.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js?v=2.1"></script>
+    <script src="js/matrix-snake.js?v=2.1"></script>
+    <script src="js/tesseract.js?v=2.1"></script>
+    <!-- SCRIPT DU TEMPLATE -->
+    
+
+    <!-- THEME SWITCHER WIDGET -->
+    <div class="kadre-theme-switcher">
+        <div class="theme-active-indicator"></div>
+        <button class="theme-btn" data-mode="light" aria-label="Mode Clair" title="Clair">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+        <button class="theme-btn" data-mode="system" aria-label="Mode Système" title="Auto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        </button>
+        <button class="theme-btn" data-mode="dark" aria-label="Mode Sombre" title="Sombre">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </div>
+
+
+    
+
+<script src="js/hacker-text.js"></script>
+<script src="js/ai-companion.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        document.documentElement.style.visibility = 'visible';
+        document.body.style.visibility = 'visible';
+        document.querySelectorAll('.fade-in-up').forEach(function(el) {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
+    });
+    </script>
+    <script src="js/webgl-terminal-cube.js"></script>
+</body>
+
+</html>
+

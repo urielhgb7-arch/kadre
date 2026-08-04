@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* ── THEME TOKENS ── */
+:root {
+  --accent: #00E5FF;
+  --accent-glow: rgba(0, 229, 255, 0.3);
+  --bg-primary: #060608;
+  --bg-surface: #0d0d12;
+  --text-primary: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+  color-scheme: dark;
+}
+
+/* ── LIGHT THEME ── */
+html.light {
+  --bg-primary: #f4f6fb;
+  --bg-surface: #ffffff;
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+  --border: rgba(15, 23, 42, 0.1);
+  color-scheme: light;
+}
+
+/* Smooth transitions when switching themes */
+html *, html {
+  transition: background-color 0.3s ease, color 0.2s ease, border-color 0.3s ease;
+}
+
+/* Override body bg with CSS var in light mode */
+html.light body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Light mode specific overrides for Tailwind dark bg classes */
+html.light .bg-gray-950 { background-color: #f8fafc !important; }
+html.light .bg-gray-900 { background-color: #f1f5f9 !important; }
+html.light .bg-gray-800 { background-color: #e2e8f0 !important; }
+html.light .text-white { color: #0f172a !important; }
+html.light .text-gray-400 { color: #64748b !important; }
+html.light .text-gray-300 { color: #475569 !important; }
+html.light .border-white\/10 { border-color: rgba(15, 23, 42, 0.1) !important; }
+html.light .bg-gray-950\/80 { background-color: rgba(248, 250, 252, 0.9) !important; }
+html.light .bg-gray-900\/50 { background-color: rgba(241, 245, 249, 0.8) !important; }
+html.light #kadre-webgl { filter: invert(1) hue-rotate(180deg) brightness(0.6); }

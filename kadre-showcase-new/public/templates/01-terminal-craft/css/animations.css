@@ -1,0 +1,246 @@
+/* ==========================================
+   01 — TERMINAL CRAFT : ANIMATIONS
+   ========================================== */
+
+/* ─── FADE-IN-UP (Scroll reveal) ─── */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.delay-1 { transition-delay: 0.15s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.45s; }
+
+/* ─── GLITCH TEXT (Hero name) ─── */
+.glitch-text {
+    position: relative;
+}
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.glitch-text:hover::before {
+    animation: glitch1 0.3s ease-in-out;
+    color: var(--accent-error);
+    opacity: 0.7;
+    clip-path: inset(20% 0 40% 0);
+}
+.glitch-text:hover::after {
+    animation: glitch2 0.3s ease-in-out;
+    color: var(--accent-primary);
+    opacity: 0.7;
+    clip-path: inset(60% 0 10% 0);
+}
+
+@keyframes glitch1 {
+    0% { transform: translate(0); }
+    25% { transform: translate(-3px, 2px); }
+    50% { transform: translate(3px, -1px); }
+    75% { transform: translate(-2px, 3px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch2 {
+    0% { transform: translate(0); }
+    25% { transform: translate(3px, -2px); }
+    50% { transform: translate(-3px, 1px); }
+    75% { transform: translate(2px, -3px); }
+    100% { transform: translate(0); }
+}
+
+/* ─── LINE NUMBER COUNTER (au scroll) ─── */
+.code-line .line-num {
+    transition: color 0.3s;
+}
+.code-line:hover .line-num {
+    color: var(--accent-primary);
+    opacity: 1;
+}
+
+/* ─── SKILL BAR FILL ANIMATION ─── */
+.skill-bar-fill {
+    width: 0 !important;
+    transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.skill-bar-fill.animate {
+    /* width sera appliqué via JS */
+}
+
+/* ─── PROJECT CARD STAGGER ─── */
+.project-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s, box-shadow 0.3s;
+}
+.project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── PAGE TRANSITION ─── */
+body {
+    animation: pageSlideIn 0.4s var(--ease-out);
+}
+
+@keyframes pageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── TERMINAL PROMPT TYPING ─── */
+.cli-command {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--accent-secondary);
+    animation: typingPrompt 2s steps(40) 0.5s forwards, promptCursorHide 0.1s 2.5s forwards;
+    max-width: 0;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+@keyframes typingPrompt {
+    to { max-width: 600px; }
+}
+@keyframes promptCursorHide {
+    to { border-right-color: transparent; }
+}
+
+/* ─── WINDOW DOTS HOVER ─── */
+.window-dots .dot {
+    transition: transform 0.2s;
+}
+.window-dots:hover .dot {
+    transform: scale(1.3);
+}
+
+/* ─── NAV LINK UNDERLINE ─── */
+.nav-link {
+    position: relative;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent-primary);
+    transition: width 0.3s, left 0.3s;
+}
+.nav-link:hover::after, .nav-link.active::after {
+    width: 80%;
+    left: 10%;
+}
+
+/* ==========================================
+   LOADING SPINNER
+   ========================================== */
+#loading-spinner {
+    position: fixed; top: 56px; left: 0; right: 0; bottom: 0; z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg-primary, #08090A);
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+ pointer-events: none; }
+#loading-spinner.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border-color, #27272A);
+    border-top-color: var(--accent-primary, #7C3AED);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* =========================================
+   KADRE LOADER ANIMATION
+   ========================================= */
+#loading-spinner {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-primary, #0D1117);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loading-spinner.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.loader-text {
+    font-size: 3rem;
+    font-weight: 800;
+    display: flex;
+    overflow: hidden;
+    color: var(--accent-primary, #58A6FF);
+    font-family: var(--font-family, 'Inter', sans-serif);
+}
+
+.loader-text span {
+    display: inline-block;
+    transform: translateY(100%);
+    animation: riseUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.loader-by {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    opacity: 0.6;
+    color: var(--text-primary, #E6EDF3);
+    text-transform: uppercase;
+    font-family: var(--font-family, 'Inter', sans-serif);
+}
+
+.footer-vouh {
+    font-weight: bold;
+    color: var(--accent-primary, #58A6FF);
+    margin-left: 5px;
+}
+
+@keyframes riseUp {
+    to { transform: translateY(0); }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: REDUCED MOTION (WCAG)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  canvas {
+    opacity: 0.1 !important;
+    pointer-events: none !important;
+  }
+}

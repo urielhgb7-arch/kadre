@@ -1,0 +1,62 @@
+[
+  {
+    "id": "01-terminal-craft",
+    "name": "Terminal Craft",
+    "description": "Un design orienté backend et hacking, inspiré des interfaces en ligne de commande.",
+    "forWho": "Développeurs Backend, Experts DevOps, Hackers Éthiques, Ingénieurs Data",
+    "why": "Parce qu'il met en valeur vos compétences techniques pures à travers une esthétique brute et nostalgique. Vos visiteurs sauront immédiatement que vous maîtrisez le code.",
+    "price": "15500 FCFA",
+    "tags": ["Backend", "DevOps", "Terminal", "Minimal"],
+    "stack": ["HTML5", "Vanilla CSS", "JavaScript (GSAP)"],
+    "thumbnail": "/assets/preview-terminal.jpg",
+    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/terminal-craft/checkout"
+  },
+  {
+    "id": "02-blueprint",
+    "name": "Blueprint",
+    "description": "Le portfolio architectural et clair, parfait pour les profils full-stack.",
+    "forWho": "Développeurs Full-Stack, Ingénieurs Logiciel, Chefs de Projet Techniques",
+    "why": "Blueprint inspire la confiance, la structure et la rigueur. Il est idéal pour présenter des projets complexes avec une interface aérée et des interactions magnétiques.",
+    "price": "15500 FCFA",
+    "tags": ["Full-Stack", "Clean", "Corporate"],
+    "stack": ["HTML5", "CSS Grid", "GSAP (Magnetic)"],
+    "thumbnail": "/assets/preview-blueprint.jpg",
+    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/blueprint/checkout"
+  },
+  {
+    "id": "03-motion-stack",
+    "name": "Motion Stack",
+    "description": "Un portfolio ultra-dynamique misant sur la vitesse et les animations de défilement.",
+    "forWho": "Développeurs Frontend, Creative Coders, Designers UI/UX",
+    "why": "C'est le template parfait pour impressionner avec des effets visuels modernes (Skew on scroll, mesh gradients) qui montrent votre maîtrise des animations web.",
+    "price": "15500 FCFA",
+    "tags": ["Frontend", "Motion", "Creative"],
+    "stack": ["CSS Natif", "GSAP ScrollTrigger"],
+    "thumbnail": "/assets/preview-motion.jpg",
+    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/motion-stack/checkout"
+  },
+  {
+    "id": "04-quiet-system",
+    "name": "Quiet System",
+    "description": "Minimaliste, élégant, brutaliste. Le portfolio qui laisse parler votre travail.",
+    "forWho": "Designers UI, Développeurs Frontend orientés Design, Directeurs Artistiques",
+    "why": "Avec son design épuré et son effet de parallaxe discret, il place vos projets au centre de l'attention sans aucune distraction visuelle.",
+    "price": "15500 FCFA",
+    "tags": ["Minimal", "Design", "Brutalist"],
+    "stack": ["HTML5", "Vanilla CSS", "GSAP Parallax"],
+    "thumbnail": "/assets/preview-quiet.jpg",
+    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/quiet-system/checkout"
+  },
+  {
+    "id": "05-gallery-wall",
+    "name": "Gallery Wall",
+    "description": "L'expérience 3D immersive et artistique sous forme de boucle infinie.",
+    "forWho": "Photographes, Créatifs 3D, Développeurs WebGL, Artistes",
+    "why": "Il ne s'agit pas juste d'un portfolio, c'est une véritable exposition d'art interactive. La boucle infinie et les distorsions fluides offrent une navigation inoubliable.",
+    "price": "15500 FCFA",
+    "tags": ["3D", "WebGL", "Interactive", "Creative"],
+    "stack": ["HTML5", "Vanilla CSS", "WebGL / GSAP"],
+    "thumbnail": "/assets/preview-gallery.jpg",
+    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/gallery-wall/checkout"
+  }
+]

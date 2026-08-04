@@ -1,0 +1,64 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  description: string;
+  thumbnail: string;
+  price: string;
+  tags: string[];
+  checkoutLink?: string;
+}
+
+const { id, name, description, thumbnail, price, tags, checkoutLink } = Astro.props;
+---
+
+<div class="group block relative rounded-[2rem] sm:rounded-[2.5rem] bg-gray-900/50 backdrop-blur-md border border-white/5 overflow-hidden transition-all duration-[400ms] hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5),0_0_20px_rgba(0,229,255,0.1)]">
+  <a href={`/template/${id}`} class="block absolute inset-0 z-10" aria-label={`Voir le template ${name}`}></a>
+  <div class="aspect-video w-full bg-[#060608] relative overflow-hidden border-b border-white/5">
+    
+    <!-- Live Iframe Preview — fixed scale, overlay reveal on hover -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <iframe 
+        src={`/templates/${id}/index.html`} 
+        loading="lazy" 
+        title={`Aperçu du template ${name}`}
+        class="absolute top-0 left-0 border-none origin-top-left pointer-events-none"
+        style="width: 200%; height: 200%; transform: scale(0.5);"
+      ></iframe>
+      <!-- Overlay fades on hover to reveal live preview -->
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent opacity-90 mix-blend-multiply transition-opacity duration-[800ms] ease-out group-hover:opacity-40"></div>
+      <div class="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]"></div>
+    </div>
+
+    <!-- Badge -->
+    <div class="absolute top-4 right-4 sm:top-5 sm:right-5 bg-black/60 backdrop-blur-xl px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold text-white border border-white/10 z-20 shadow-[0_4px_16px_rgba(0,0,0,0.5)]">
+      {price}
+    </div>
+  </div>
+  
+  <div class="p-5 sm:p-8 relative z-20">
+    <div class="flex flex-wrap gap-2 mb-4 sm:mb-5">
+      {tags.map((tag) => (
+        <span class="px-2.5 sm:px-3 py-1 sm:py-1.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-[#00E5FF] bg-[#00E5FF]/10 rounded-full border border-[#00E5FF]/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
+          {tag}
+        </span>
+      ))}
+    </div>
+    
+    <h3 class="text-xl sm:text-2xl font-bold font-heading text-white mb-2 sm:mb-3 group-hover:text-[#00E5FF] transition-colors"><a href={`/template/${id}`} class="hover:underline">{name}</a></h3>
+    <p class="text-gray-400 text-sm line-clamp-2 leading-relaxed opacity-90 mb-6 sm:mb-8">{description}</p>
+    
+    <div class="flex items-center justify-between mt-auto">
+      <a href={`/template/${id}`} class="text-gray-500 hover:text-white transition-colors flex items-center gap-2 text-sm font-semibold relative z-30">
+        Découvrir 
+        <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+      </a>
+      
+      {checkoutLink && (
+        <a href={checkoutLink} target="_blank" rel="noopener noreferrer" class="relative z-30 inline-flex items-center gap-2 px-4 sm:px-5 py-2 text-sm font-bold text-[#00E5FF] bg-[#00E5FF]/10 border border-[#00E5FF]/30 rounded-lg hover:bg-[#00E5FF]/20 transition-all hover:shadow-[0_0_15px_rgba(0,229,255,0.3)]">
+          Acheter
+        </a>
+      )}
+    </div>
+  </div>
+</div>
