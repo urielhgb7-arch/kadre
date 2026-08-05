@@ -68,7 +68,7 @@ import Layout from '../layouts/Layout.astro';
                 <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center mt-1 border border-white/10 shrink-0">2</div>
                 <div>
                   <strong class="text-white block mb-1">Copier la Clé Anon</strong>
-                  <span class="text-sm text-gray-500 block">Allez dans les ⚙️ <strong>Project Settings</strong> (en bas à gauche), puis dans <strong>API</strong>. Descendez dans la section <em>Project API keys</em> et copiez la clé marquée `anon` `public`.</span>
+                  <span class="text-sm text-gray-500 block">Allez dans les ⚙️ <strong>Project Settings</strong> (en bas à gauche) > <strong>API Keys</strong>. Cherchez la section <em>Legacy anon, service_role API keys</em> et copiez la clé avec le tag vert `anon` `public`.</span>
                 </div>
               </li>
             </ul>
@@ -95,7 +95,7 @@ import Layout from '../layouts/Layout.astro';
              
              <!-- Fake API Key section -->
              <div class="w-full p-4 rounded-xl bg-[#1c1c1c] border border-[#3ECF8E]/30 transform translate-y-4 -translate-z-10 rotate-x-[-10deg] group-hover:translate-y-0 group-hover:rotate-x-0 transition-transform duration-700">
-               <div class="text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider border-b border-white/10 pb-2">Project API Keys</div>
+               <div class="text-[10px] text-gray-400 font-bold mb-3 uppercase tracking-wider border-b border-white/10 pb-2">Legacy anon, service_role API keys</div>
                <div class="flex items-center justify-between mb-2">
                  <div class="flex items-center gap-2">
                    <div class="px-1.5 py-0.5 rounded bg-[#3ECF8E]/20 text-[#3ECF8E] text-[10px] font-mono">anon</div>
@@ -124,7 +124,7 @@ import Layout from '../layouts/Layout.astro';
             <ol class="space-y-4 text-gray-300 ml-4 list-decimal list-inside">
               <li>Ouvrez le fichier <strong>SQL</strong> (souvent nommé <code>schema.sql</code>) qui est fourni dans votre dossier téléchargé.</li>
               <li>Copiez tout son contenu (Ctrl+A puis Ctrl+C).</li>
-              <li>Dans Supabase, allez dans le menu <strong>SQL Editor</strong> (icône avec </>) à gauche.</li>
+              <li>Dans Supabase, allez dans le menu <strong>SQL Editor</strong> (icône avec &lt;/&gt;) à gauche.</li>
               <li>Cliquez sur <strong>New query</strong>, collez le script, et appuyez sur <strong class="text-yellow-400">Run</strong> en bas à droite.</li>
             </ol>
             <p class="text-sm text-yellow-500/80 mt-4 italic bg-yellow-500/10 p-3 rounded-lg border border-yellow-500/20">
