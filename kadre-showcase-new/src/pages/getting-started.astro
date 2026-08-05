@@ -225,14 +225,20 @@ import Layout from '../layouts/Layout.astro';
               Votre portfolio est un projet moderne classique, ce qui le rend compatible avec n'importe quel hébergeur gratuit.
             </p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-              <div class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <h4 class="text-white font-bold mb-2">▲ Vercel</h4>
-                <p class="text-sm text-gray-400">Glissez-déposez simplement votre dossier sur Vercel.com</p>
-              </div>
-              <div class="p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <h4 class="text-white font-bold mb-2">❖ Netlify</h4>
-                <p class="text-sm text-gray-400">Même principe : créez un compte et faites un Drag & Drop.</p>
-              </div>
+              <a href="https://vercel.com/new" target="_blank" rel="noopener noreferrer" class="group/btn p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-all flex flex-col items-start cursor-pointer">
+                <div class="flex items-center justify-between w-full mb-2">
+                  <h4 class="text-white font-bold flex items-center gap-2"><svg class="w-4 h-4 fill-white" viewBox="0 0 76 65" xmlns="http://www.w3.org/2000/svg"><path d="M37.5274 0L75.0548 65H0L37.5274 0Z"/></svg> Vercel</h4>
+                  <svg class="w-4 h-4 text-gray-500 group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </div>
+                <p class="text-sm text-gray-400">Cliquez ici, connectez-vous, puis <strong>glissez-déposez le dossier de votre template</strong> directement sur leur page.</p>
+              </a>
+              <a href="https://app.netlify.com/drop" target="_blank" rel="noopener noreferrer" class="group/btn p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-all flex flex-col items-start cursor-pointer">
+                <div class="flex items-center justify-between w-full mb-2">
+                  <h4 class="text-white font-bold flex items-center gap-2"><span class="text-xl leading-none text-[#00C7B7]">❖</span> Netlify</h4>
+                  <svg class="w-4 h-4 text-gray-500 group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </div>
+                <p class="text-sm text-gray-400">Cliquez ici pour accéder à Netlify Drop. Vous n'avez qu'à faire un Drag & Drop du dossier pour le mettre en ligne.</p>
+              </a>
             </div>
           </div>
           
