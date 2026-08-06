@@ -378,7 +378,7 @@
                 // Force scroll to top when switching device to fix layout issues on long pages
                 try {
                     if (previewIframe && previewIframe.contentWindow) {
-                        previewIframe.contentWindow.scrollTo({ top: 0, behavior: 'smooth' });
+                        previewIframe.contentWindow.scrollTo(0, 0);
                     }
                 } catch(err) {}
             });

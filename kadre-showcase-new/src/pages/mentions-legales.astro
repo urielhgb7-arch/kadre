@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="Mentions Légales | Kadrify"
+  description="Mentions légales du site Kadrify édité par VOUH Digital."
+>
+  <Header />
+  
+  <main class="pt-[100px] pb-24 min-h-screen">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="text-3xl md:text-5xl font-bold font-heading text-white mb-8">Mentions Légales</h1>
+      
+      <div class="prose prose-invert prose-lg max-w-none text-gray-300">
+        <p>Les présentes mentions légales fixent les conditions d'utilisation du site Kadrify et des services associés.</p>
+
+        <h2 class="text-white mt-8 mb-4 font-bold text-2xl">1. Éditeur du site</h2>
+        <p>
+          Le site <strong>Kadrify</strong> est édité par :<br>
+          <strong>VOUH Digital</strong><br>
+          Email de contact : support@vouhdigital.com<br>
+          <em>(Compléter avec les informations d'entreprise : SIRET/RCCM, adresse, etc.)</em>
+        </p>
+
+        <h2 class="text-white mt-8 mb-4 font-bold text-2xl">2. Hébergement</h2>
+        <p>
+          Le site est hébergé par :<br>
+          <strong>Vercel Inc.</strong><br>
+          340 S Lemon Ave #4133<br>
+          Walnut, CA 91789, USA
+        </p>
+
+        <h2 class="text-white mt-8 mb-4 font-bold text-2xl">3. Propriété Intellectuelle</h2>
+        <p>
+          L'ensemble de ce site relève des législations internationales sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents iconographiques et photographiques.
+        </p>
+
+        <h2 class="text-white mt-8 mb-4 font-bold text-2xl">4. Données Personnelles</h2>
+        <p>
+          Conformément aux réglementations en vigueur (RGPD), vous disposez d'un droit d'accès, de rectification et d'opposition aux données personnelles vous concernant. Kadrify utilise Supabase pour l'authentification et ne vend pas vos données à des tiers.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

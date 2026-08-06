@@ -652,8 +652,8 @@ header,
 @media (max-width: 768px) {
     .nav-links {
         background: rgba(10, 10, 15, 0.98) !important;
-        backdrop-filter: blur(24px) saturate(180%) !important;
-        -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+        backdrop-filter: blur(12px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
         box-shadow: 0 20px 40px rgba(0,0,0,0.8) !important;
         border-bottom: 1px solid rgba(255,255,255,0.1) !important;
     }
@@ -682,8 +682,8 @@ header,
 /* MOBILE NAV BLUR FIX */
 @media (max-width: 768px) {
     .terminal-header, .navbar, .header, .glass-header {
-        background: rgba(10, 10, 10, 0.85) !important;
-        backdrop-filter: blur(24px) saturate(200%) !important;
-        -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+        background: rgba(10, 10, 10, 0.95) !important;
+        backdrop-filter: blur(12px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(12px) saturate(200%) !important;
     }
 }

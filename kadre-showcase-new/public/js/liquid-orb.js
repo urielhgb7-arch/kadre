@@ -54,7 +54,9 @@
         scene.environment = pmremGenerator.fromScene(envScene).texture;
 
         // The Blob (Organic dynamic shape)
-        const geometry = new THREE.IcosahedronGeometry(2.5, 64);
+        const isMobile = window.innerWidth < 768;
+        // Reduce geometry complexity on mobile to save battery and increase FPS
+        const geometry = new THREE.IcosahedronGeometry(2.5, isMobile ? 24 : 64);
         
         const material = new THREE.MeshPhysicalMaterial({
             color: 0xffffff,
@@ -140,11 +142,13 @@
         function updateBlobScale() {
             const aspect = window.innerWidth / window.innerHeight;
             if (aspect > 1.2) {
-                sphere.scale.set(aspect * 0.9, 1, 1);
+                // Wide screen: stretch horizontally
+                sphere.scale.set(aspect * 1.1, 1, 1.2);
             } else if (aspect < 0.8) {
-                sphere.scale.set(1, (1 / aspect) * 0.8, 1);
+                // Tall screen (Mobile): stretch vertically significantly to fill the background
+                sphere.scale.set(1.2, (1 / aspect) * 1.2, 1);
             } else {
-                sphere.scale.set(1, 1, 1);
+                sphere.scale.set(1.1, 1.1, 1.1);
             }
         }
         updateBlobScale();

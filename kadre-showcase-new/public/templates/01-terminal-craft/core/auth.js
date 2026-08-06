@@ -152,17 +152,20 @@ window.addEventListener('pageshow', (e) => {
 });
 
 function isSandboxContext() {
+  const hostname = window.location.hostname;
+  const isShowcase = hostname.includes('kadre') || hostname.includes('kadrify') || hostname === 'localhost' || hostname === '127.0.0.1';
+  if (!isShowcase) return false;
+
   try {
     if (window.self !== window.top) return true;
   } catch(e) { return true; }
   try {
     const parentHref = String(window.parent.location.href || '').toLowerCase();
     if (parentHref.includes('sandbox') || parentHref.includes('preview')) return true;
-  } catch(e) { /* silent */ }
+  } catch(e) {}
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get('sandbox') === 'true' || urlParams.get('preview') === 'true';
 }
-
 function initCoreAuthListeners() {
   if (isAuthInitialized) return;
   isAuthInitialized = true;
