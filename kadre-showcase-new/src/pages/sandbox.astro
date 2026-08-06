@@ -366,6 +366,7 @@
 
         // Gestion des devices
         const wrapper = document.getElementById('preview-wrapper');
+        const previewIframe = document.getElementById('preview-frame');
         document.querySelectorAll('.device-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
@@ -373,6 +374,13 @@
                 
                 const device = e.target.dataset.device;
                 wrapper.className = 'iframe-wrapper ' + device;
+                
+                // Force scroll to top when switching device to fix layout issues on long pages
+                try {
+                    if (previewIframe && previewIframe.contentWindow) {
+                        previewIframe.contentWindow.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } catch(err) {}
             });
         });
 

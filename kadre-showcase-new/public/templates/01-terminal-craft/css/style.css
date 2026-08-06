@@ -557,6 +557,9 @@ a:hover { color: var(--text-primary); }
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
     .terminal-header {
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(24px) saturate(150%);
+        -webkit-backdrop-filter: blur(24px) saturate(150%);
         flex-wrap: wrap;
         height: auto;
         padding: 10px 16px;
@@ -1388,5 +1391,14 @@ header,
     }
     body, a, button, input, textarea, select {
         cursor: auto !important;
+    }
+}
+
+/* MOBILE NAV BLUR FIX */
+@media (max-width: 768px) {
+    .terminal-header, .navbar, .header, .glass-header {
+        background: rgba(10, 10, 10, 0.85) !important;
+        backdrop-filter: blur(24px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
     }
 }

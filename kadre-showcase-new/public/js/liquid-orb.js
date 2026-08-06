@@ -53,8 +53,8 @@
         pmremGenerator.compileEquirectangularShader();
         scene.environment = pmremGenerator.fromScene(envScene).texture;
 
-        // The Orb (Large diameter)
-        const geometry = new THREE.SphereGeometry(2.8, 256, 256);
+        // The Blob (Organic dynamic shape)
+        const geometry = new THREE.IcosahedronGeometry(2.5, 64);
         
         const material = new THREE.MeshPhysicalMaterial({
             color: 0xffffff,
@@ -126,8 +126,8 @@
                 `#include <begin_vertex>`,
                 `
                 #include <begin_vertex>
-                float noise = snoise(position * 0.8 + time * 0.5) * 0.3;
-                float noise2 = snoise(position * 2.0 - time * 0.2) * 0.1;
+                float noise = snoise(position * 0.6 + time * 0.4) * 0.6;
+                float noise2 = snoise(position * 1.5 - time * 0.3) * 0.2;
                 transformed += normal * (noise + noise2);
                 `
             );
@@ -136,6 +136,18 @@
 
         const sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
+
+        function updateBlobScale() {
+            const aspect = window.innerWidth / window.innerHeight;
+            if (aspect > 1.2) {
+                sphere.scale.set(aspect * 0.9, 1, 1);
+            } else if (aspect < 0.8) {
+                sphere.scale.set(1, (1 / aspect) * 0.8, 1);
+            } else {
+                sphere.scale.set(1, 1, 1);
+            }
+        }
+        updateBlobScale();
 
         // Mouse interaction
         let mouseX = 0;
@@ -177,6 +189,7 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            updateBlobScale();
         });
     });
 })();

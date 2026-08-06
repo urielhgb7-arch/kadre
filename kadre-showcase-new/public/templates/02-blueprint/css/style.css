@@ -678,3 +678,12 @@ header,
         cursor: auto !important;
     }
 }
+
+/* MOBILE NAV BLUR FIX */
+@media (max-width: 768px) {
+    .terminal-header, .navbar, .header, .glass-header {
+        background: rgba(10, 10, 10, 0.85) !important;
+        backdrop-filter: blur(24px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+    }
+}
