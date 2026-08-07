@@ -143,18 +143,18 @@
         function updateBlobScale() {
             const aspect = window.innerWidth / window.innerHeight;
             if (aspect < 0.8) {
-                // Mobile: étirer verticalement pour remplir l'écran, 
-                // mais garder l'échelle Z à 1.0 pour ne pas "manger" la caméra
-                const stretch = Math.min(2.0, 1 / aspect);
-                sphere.scale.set(1.4, 1.4 * stretch, 1.0);
-                camera.position.z = 8.5;
+                // Mobile: Réduire la largeur, étirer la hauteur, et reculer beaucoup la caméra 
+                // pour voir la forme globale de la boule au lieu d'un zoom extrême
+                sphere.scale.set(0.8, 1.8, 0.8);
+                camera.position.z = 20;
             } else if (aspect > 1.2) {
-                // PC: étirer horizontalement
-                sphere.scale.set(aspect * 1.1, 1.2, 1.2);
-                camera.position.z = 8;
+                // PC: Étirer horizontalement
+                sphere.scale.set(aspect * 1.2, 1.1, 1.1);
+                camera.position.z = 12;
             } else {
-                sphere.scale.set(1.4, 1.4, 1.2);
-                camera.position.z = 8;
+                // Tablette
+                sphere.scale.set(1.2, 1.2, 1.0);
+                camera.position.z = 16;
             }
         }
         updateBlobScale();
