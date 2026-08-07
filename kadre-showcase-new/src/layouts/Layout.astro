@@ -149,8 +149,13 @@ const navigationSchema = {
   <body class="bg-gray-950 text-gray-100 font-sans antialiased min-h-screen flex flex-col relative selection:bg-indigo-500/30">
     <!-- LOADER -->
     <div id="kadre-loader" class="fixed inset-0 z-[99999] bg-[#060608] flex flex-col items-center justify-center transition-all duration-[800ms] ease-out">
-      <canvas id="loader-canvas" width="600" height="200"></canvas>
-      <div id="loader-brand" class="mt-5 font-heading font-semibold tracking-[4px] text-[0.72rem] uppercase text-white/50 min-h-[1.2em]"></div>
+      <div class="relative w-16 h-16 flex items-center justify-center mb-6">
+        <div class="absolute inset-0 rounded-full border-t-2 border-[#00E5FF] animate-spin"></div>
+        <div class="absolute inset-2 rounded-full border-r-2 border-[#80F2FF] animate-[spin_1.5s_linear_reverse_infinite]"></div>
+        <div class="absolute inset-0 bg-[#00E5FF]/20 blur-xl rounded-full"></div>
+      </div>
+      <div class="font-heading font-bold text-xl tracking-[4px] text-white">AURAKADRE</div>
+      <div class="mt-2 text-[0.65rem] tracking-[3px] text-gray-500 uppercase">by Vouh Digital</div>
     </div>
     
     <script is:inline>
@@ -160,107 +165,18 @@ const navigationSchema = {
               if (el) { el.style.opacity='0'; el.style.visibility='hidden'; el.style.pointerEvents='none'; }
               return;
           }
-
-          var loader = document.getElementById('kadre-loader');
-          var canvas = document.getElementById('loader-canvas');
-          if (!canvas || !loader) return;
-          var ctx = canvas.getContext('2d');
-          var W = canvas.width, H = canvas.height;
-
-          var particlesDone = false;
-          var brandDone = false;
-
-          function tryDismiss() {
-              if (particlesDone && brandDone) {
+          
+          window.addEventListener('load', function() {
+              setTimeout(function() {
                   sessionStorage.setItem('kadre-loaded', '1');
-                  loader.style.opacity = '0';
-                  loader.style.visibility = 'hidden';
-                  loader.style.pointerEvents = 'none';
-              }
-          }
-
-          // Particle text "AURAKADRE"
-          var particles = [];
-          var text = "AURAKADRE";
-          ctx.font = "bold 80px 'Space Grotesk', sans-serif";
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillStyle = "#fff";
-          ctx.fillText(text, W/2, H/2);
-
-          var imageData = ctx.getImageData(0, 0, W, H);
-          ctx.clearRect(0, 0, W, H);
-
-          for (var y = 0; y < H; y += 3) {
-              for (var x = 0; x < W; x += 3) {
-                  var i = (y * W + x) * 4;
-                  if (imageData.data[i+3] > 128) {
-                      particles.push({
-                          x: Math.random() * W,
-                          y: Math.random() * H,
-                          tx: x,
-                          ty: y,
-                          alpha: 0,
-                          size: 1.2 + Math.random() * 1.2
-                      });
+                  var loader = document.getElementById('kadre-loader');
+                  if (loader) {
+                      loader.style.opacity = '0';
+                      loader.style.visibility = 'hidden';
+                      loader.style.pointerEvents = 'none';
                   }
-              }
-          }
-
-          var t = 0;
-          function draw() {
-              // Liquid metal background for the loader
-              var g = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W*0.6);
-              g.addColorStop(0, 'rgba(40,38,45,1)');
-              g.addColorStop(0.5, 'rgba(20,18,22,1)');
-              g.addColorStop(1, 'rgba(6,6,8,1)');
-              ctx.fillStyle = g;
-              ctx.fillRect(0, 0, W, H);
-
-              t += 0.04;
-              var done = true;
-              for (var i = 0; i < particles.length; i++) {
-                  var p = particles[i];
-                  var ease = 0.06 + t * 0.004;
-                  p.x += (p.tx - p.x) * ease;
-                  p.y += (p.ty - p.y) * ease;
-                  p.alpha = Math.min(1, p.alpha + 0.03);
-                  if (Math.abs(p.x - p.tx) > 0.5 || Math.abs(p.y - p.ty) > 0.5) done = false;
-                  var gv = 180 + Math.floor(p.alpha * 75);
-                  ctx.fillStyle = "rgba(" + (gv+30) + "," + (gv+20) + "," + (gv-30) + "," + p.alpha + ")";
-                  ctx.fillRect(p.x, p.y, p.size, p.size);
-              }
-              if (!done) {
-                  requestAnimationFrame(draw);
-              } else {
-                  particlesDone = true;
-                  tryDismiss();
-              }
-          }
-          draw();
-
-          // "BY VOUH DIGITAL" letter by letter
-          var brand = document.getElementById('loader-brand');
-          var brandText = "BY VOUH DIGITAL";
-          var brandIdx = 0;
-          function typeBrand() {
-              if (brandIdx <= brandText.length) {
-                  brand.textContent = brandText.substring(0, brandIdx);
-                  brandIdx++;
-                  setTimeout(typeBrand, 30);
-              } else {
-                  brandDone = true;
-                  tryDismiss();
-              }
-          }
-          setTimeout(typeBrand, 300);
-
-          // Fallback: force dismiss after 1.5s max
-          setTimeout(function() {
-              particlesDone = true;
-              brandDone = true;
-              tryDismiss();
-          }, 1500);
+              }, 800); // Délai fluide
+          });
       })();
     </script>
 

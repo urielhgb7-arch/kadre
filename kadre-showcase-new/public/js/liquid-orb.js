@@ -159,10 +159,10 @@
             const aspect = window.innerWidth / window.innerHeight;
             if (aspect < 0.8) {
                 // Mobile : on réduit drastiquement l'échelle pour voir l'objet entier (comme un bijou flottant)
-                baseScaleX = 0.4;
-                baseScaleY = 0.4;
-                baseScaleZ = 0.4;
-                camera.position.z = 15;
+                baseScaleX = 0.25;
+                baseScaleY = 0.25;
+                baseScaleZ = 0.25;
+                camera.position.z = 25;
             } else if (aspect > 1.2) {
                 // PC : taille moyenne
                 baseScaleX = 0.5;
