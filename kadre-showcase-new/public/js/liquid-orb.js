@@ -165,16 +165,16 @@
                 camera.position.z = 20;
             } else if (aspect > 1.2) {
                 // PC : taille moyenne
-                baseScaleX = 0.5;
-                baseScaleY = 0.5;
-                baseScaleZ = 0.5;
-                camera.position.z = 15;
+                baseScaleX = 0.85;
+                baseScaleY = 0.85;
+                baseScaleZ = 0.85;
+                camera.position.z = 12;
             } else {
                 // Tablette
-                baseScaleX = 0.45;
-                baseScaleY = 0.45;
-                baseScaleZ = 0.45;
-                camera.position.z = 15;
+                baseScaleX = 0.65;
+                baseScaleY = 0.65;
+                baseScaleZ = 0.65;
+                camera.position.z = 14;
             }
             sphere.scale.set(baseScaleX * morphScale, baseScaleY * morphScale, baseScaleZ * morphScale);
         }
