@@ -143,15 +143,18 @@
         function updateBlobScale() {
             const aspect = window.innerWidth / window.innerHeight;
             if (aspect < 0.8) {
-                // Mobile: uniform scale up so it fills vertically without stretching the noise
-                const scale = Math.max(1.8, (1 / aspect) * 1.1);
-                sphere.scale.set(scale, scale, scale);
+                // Mobile: étirer verticalement pour remplir l'écran, 
+                // mais garder l'échelle Z à 1.0 pour ne pas "manger" la caméra
+                const stretch = Math.min(2.0, 1 / aspect);
+                sphere.scale.set(1.4, 1.4 * stretch, 1.0);
+                camera.position.z = 8.5;
             } else if (aspect > 1.2) {
-                // Wide screen: uniform scale to fill horizontally
-                const scale = Math.max(1.2, aspect * 0.9);
-                sphere.scale.set(scale, scale, scale);
+                // PC: étirer horizontalement
+                sphere.scale.set(aspect * 1.1, 1.2, 1.2);
+                camera.position.z = 8;
             } else {
-                sphere.scale.set(1.3, 1.3, 1.3);
+                sphere.scale.set(1.4, 1.4, 1.2);
+                camera.position.z = 8;
             }
         }
         updateBlobScale();
