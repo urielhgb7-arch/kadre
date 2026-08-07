@@ -72,12 +72,14 @@
         let baseScaleX = 1.0, baseScaleY = 1.0, baseScaleZ = 1.0;
         
         const material = new THREE.MeshPhysicalMaterial({
-            color: 0xffffff,
+            color: 0x00E5FF,      // Bright cyan like og-image
+            emissive: 0x002244,   // Deep cyan inner glow
+            emissiveIntensity: 0.5,
             metalness: 1.0,
-            roughness: 0.15,
+            roughness: 0.1,
             clearcoat: 1.0,
-            clearcoatRoughness: 0.1,
-            envMapIntensity: 2.0
+            clearcoatRoughness: 0.05,
+            envMapIntensity: 2.5
         });
 
         // Add vertex displacement to make it "liquid"
@@ -212,27 +214,32 @@
 
             // Shape Morphing Logic
             morphTimer += 0.01;
-            if (morphTimer > 6.0 && morphPhase === 0) {
+            if (morphTimer > 5.0 && morphPhase === 0) { // faster morph cycle (5s)
                 morphPhase = 1;
                 morphTimer = 0;
             }
             if (morphPhase === 1) {
-                morphScale += (0.001 - morphScale) * 0.1;
-                if (morphScale < 0.05) {
+                morphScale += (0.001 - morphScale) * 0.12; // faster shrink
+                if (morphScale < 0.02) { // get smaller before switching
                     currentGeoIndex = (currentGeoIndex + 1) % geometries.length;
                     sphere.geometry = geometries[currentGeoIndex];
                     morphPhase = 2;
                 }
             } else if (morphPhase === 2) {
-                morphScale += (1.0 - morphScale) * 0.05;
+                morphScale += (1.0 - morphScale) * 0.08; // faster grow
                 if (morphScale > 0.99) {
                     morphScale = 1.0;
                     morphPhase = 0;
                 }
             }
             
-            // Apply scale with morphing
-            sphere.scale.set(baseScaleX * morphScale, baseScaleY * morphScale, baseScaleZ * morphScale);
+            // Apply scale with morphing (pulse effect with math.sin added to base scale)
+            const pulse = 1.0 + Math.sin(time * 2.0) * 0.05;
+            sphere.scale.set(
+                baseScaleX * morphScale * pulse, 
+                baseScaleY * morphScale * pulse, 
+                baseScaleZ * morphScale * pulse
+            );
 
             renderer.render(scene, camera);
         }

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://kadre-blue.vercel.app/sitemap.xml
