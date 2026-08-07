@@ -162,7 +162,7 @@
                 baseScaleX = 0.50;
                 baseScaleY = 0.50;
                 baseScaleZ = 0.50;
-                camera.position.z = 20;
+                camera.position.z = 10;
             } else if (aspect > 1.2) {
                 // PC : taille moyenne
                 baseScaleX = 0.5;
