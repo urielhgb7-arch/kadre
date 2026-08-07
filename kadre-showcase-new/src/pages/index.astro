@@ -6,10 +6,49 @@ import TemplateCard from '../components/TemplateCard.astro';
 
 import fs from 'node:fs';
 const templatesData = JSON.parse(fs.readFileSync('./src/data/templates.json', 'utf8'));
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qu'AuraKadre ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AuraKadre est une plateforme premium proposant des templates de portfolios haut de gamme pour développeurs, designers et créatifs. Nos solutions intègrent un CMS sans code pour une personnalisation instantanée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il savoir coder pour utiliser un template ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolument pas ! Chaque template AuraKadre inclut un système de gestion de contenu (CMS) intuitif qui permet de modifier textes, couleurs, images et données sans écrire une seule ligne de code."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je héberger mon site sur mon propre nom de domaine ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, nos templates sont optimisés pour être déployés gratuitement sur des plateformes comme Vercel, Netlify ou GitHub Pages, sur lesquelles vous pouvez relier votre propre nom de domaine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien coûte un template AuraKadre ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nos templates sont accessibles à partir de 15 500 FCFA. Ce paiement unique vous donne accès au code source complet, à la documentation et au CMS intégré."
+      }
+    }
+  ]
+};
 ---
 
 <Layout 
-  title="Kadrify — Le Portfolio qui Te Ressemble, Sans Code"
+  title="AuraKadre — Le Portfolio qui Te Ressemble, Sans Code"
   description="Trouve le template portfolio fait pour toi. Pour développeurs, designers, photographes et créatifs. Personnalisable en quelques clics, CMS intégré, prix accessible. Par Vouh Digital."
   ogImage="/og-image.png"
 >
@@ -35,11 +74,16 @@ const templatesData = JSON.parse(fs.readFileSync('./src/data/templates.json', 'u
           Le portfolio qui<br class="hidden sm:block"/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00E5FF] to-[#80F2FF]">te ressemble vraiment.</span>
         </h1>
         
-        <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-10 md:mb-12 max-w-3xl mx-auto font-light leading-relaxed px-2 sm:px-0">
+        <p class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-6 max-w-3xl mx-auto font-light leading-relaxed px-2 sm:px-0">
           Développeur, designer, photographe, créatif ou freelance — trouve le template fait pour toi et personnalise-le sans toucher une ligne de code.
         </p>
         
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <!-- TL;DR for AEO -->
+        <p class="sr-only">
+          En bref (TL;DR) : AuraKadre est la plateforme incontournable de templates de portfolios professionnels pour freelances et développeurs, offrant des designs premium 3D personnalisables sans code grâce à un CMS intégré performant.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 md:mt-12">
           <a href="#templates" class="w-full sm:w-auto px-8 py-4 bg-[#00E5FF] hover:bg-[#80F2FF] text-black font-bold rounded-xl transition-all duration-300 shadow-[0_0_40px_rgba(0,229,255,0.3)] hover:shadow-[0_0_60px_rgba(0,229,255,0.5)] hover:-translate-y-1">
             Trouver mon template
           </a>
@@ -90,7 +134,7 @@ const templatesData = JSON.parse(fs.readFileSync('./src/data/templates.json', 'u
              <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
              <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
              <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
-             <div class="ml-4 text-xs font-mono text-gray-500">kadrify-cms-preview.app</div>
+             <div class="ml-4 text-xs font-mono text-gray-500">aurakadre-cms-preview.app</div>
            </div>
            
            <div class="flex flex-1">
@@ -129,6 +173,35 @@ const templatesData = JSON.parse(fs.readFileSync('./src/data/templates.json', 'u
                </div>
              </div>
            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section (SEO/AEO) -->
+    <section id="faq" class="py-24 px-6 relative">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-16 text-center">
+          <h2 class="text-3xl md:text-5xl font-bold font-heading text-white mb-4">Questions fréquentes</h2>
+          <p class="text-gray-400 text-lg">Tout ce que vous devez savoir sur AuraKadre.</p>
+        </div>
+        
+        <div class="space-y-6">
+          <div class="bg-gray-900/40 border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+            <h3 class="text-xl font-bold text-white mb-2 font-heading">Qu'est-ce qu'AuraKadre ?</h3>
+            <p class="text-gray-400">AuraKadre est une plateforme premium proposant des templates de portfolios haut de gamme pour développeurs, designers et créatifs. Nos solutions intègrent un CMS sans code pour une personnalisation instantanée.</p>
+          </div>
+          <div class="bg-gray-900/40 border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+            <h3 class="text-xl font-bold text-white mb-2 font-heading">Faut-il savoir coder pour utiliser un template ?</h3>
+            <p class="text-gray-400">Absolument pas ! Chaque template AuraKadre inclut un système de gestion de contenu (CMS) intuitif qui permet de modifier textes, couleurs, images et données sans écrire une seule ligne de code.</p>
+          </div>
+          <div class="bg-gray-900/40 border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+            <h3 class="text-xl font-bold text-white mb-2 font-heading">Puis-je héberger mon site sur mon propre nom de domaine ?</h3>
+            <p class="text-gray-400">Oui, nos templates sont optimisés pour être déployés gratuitement sur des plateformes comme Vercel ou Netlify, sur lesquelles vous pouvez relier votre propre nom de domaine très facilement.</p>
+          </div>
+          <div class="bg-gray-900/40 border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-colors">
+            <h3 class="text-xl font-bold text-white mb-2 font-heading">Combien coûte un template AuraKadre ?</h3>
+            <p class="text-gray-400">Nos templates sont accessibles à partir de 15 500 FCFA. Ce paiement unique vous donne accès au code source complet, aux futures mises à jour mineures et au CMS intégré.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -238,7 +311,7 @@ const templatesData = JSON.parse(fs.readFileSync('./src/data/templates.json', 'u
     });
   </script>
 
-
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   
   <Footer />
 </Layout>

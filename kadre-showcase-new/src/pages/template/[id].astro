@@ -15,11 +15,11 @@ export function getStaticPaths() {
 const { template } = Astro.props;
 const checkoutSlug = template.id.replace(/^\d{2}-/, '');
 const checkoutUrl = `https://huvo-shop.mymaketou.shop/products/${checkoutSlug}/checkout`;
-const templateSeoDescription = `Découvrez le template portfolio "${template.name}" — ${template.description} Idéal pour ${template.forWho}. Personnalisable sans code avec CMS intégré. Dès 15 500 FCFA sur Kadrify.`;
+const templateSeoDescription = `Découvrez le template portfolio "${template.name}" — ${template.description} Idéal pour ${template.forWho}. Personnalisable sans code avec CMS intégré. Dès 15 500 FCFA sur AuraKadre.`;
 ---
 
 <Layout 
-  title={`Template ${template.name} — Portfolio Développeur | Kadrify`}
+  title={`Template ${template.name} — Portfolio Développeur | AuraKadre`}
   description={templateSeoDescription}
   ogImage={template.thumbnail}
   schemaType="product"

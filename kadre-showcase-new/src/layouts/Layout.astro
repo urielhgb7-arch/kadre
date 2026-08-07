@@ -13,7 +13,7 @@ interface Props {
 
 const { 
   title, 
-  description = "Trouve le template portfolio qui te ressemble. Pour développeurs, designers, photographes et créatifs. Personnalisable sans code, CMS intégré, prix accessible. Kadrify by Vouh Digital.",
+  description = "Trouve le template portfolio qui te ressemble. Pour développeurs, designers, photographes et créatifs. Personnalisable sans code, CMS intégré, prix accessible. AuraKadre by Vouh Digital.",
   ogImage = "/og-image.png",
   canonical = Astro.url.href,
   schemaType = 'website',
@@ -22,8 +22,8 @@ const {
 } = Astro.props;
 
 const siteUrl = "https://kadre-blue.vercel.app";
-const siteName = "Kadrify";
-const fullTitle = title.includes('Kadrify') ? title : `${title} | Kadrify`;
+const siteName = "AuraKadre";
+const fullTitle = title.includes('AuraKadre') ? title : `${title} | AuraKadre`;
 
 // JSON-LD Schemas
 const websiteSchema = {
@@ -52,7 +52,7 @@ const organizationSchema = {
 const productSchema = templateName ? {
   "@context": "https://schema.org",
   "@type": "Product",
-  "name": `Template ${templateName} — Kadrify`,
+  "name": `Template ${templateName} — AuraKadre`,
   "description": description,
   "image": `${siteUrl}${ogImage}`,
   "brand": { "@type": "Brand", "name": siteName },
@@ -64,6 +64,31 @@ const productSchema = templateName ? {
     "url": canonical
   }
 } : null;
+
+const navigationSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "SiteNavigationElement",
+      "position": 1,
+      "name": "Templates",
+      "url": `${siteUrl}/#templates`
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 2,
+      "name": "Mentions Légales",
+      "url": `${siteUrl}/mentions-legales`
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 3,
+      "name": "Conditions Générales",
+      "url": `${siteUrl}/cgv`
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -75,7 +100,7 @@ const productSchema = templateName ? {
     <!-- ── PRIMARY META ── -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="template portfolio premium, portfolio en ligne professionnel, portfolio sans code, CMS portfolio, créer son portfolio, portfolio freelance, portfolio designer, portfolio photographe, portfolio créatif, portfolio développeur, template web professionnel, kadrify, vouh digital" />
+    <meta name="keywords" content="template portfolio premium, portfolio en ligne professionnel, portfolio sans code, CMS portfolio, créer son portfolio, portfolio freelance, portfolio designer, portfolio photographe, portfolio créatif, portfolio développeur, template web professionnel, aurakadre, vouh digital" />
     <meta name="author" content="Vouh Digital" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="google-site-verification" content="7cwGmQxFSK4jgThbHFznzC9_PfKmxySo2cQAhx1CV-w" />
@@ -113,6 +138,7 @@ const productSchema = templateName ? {
     <!-- ── JSON-LD SCHEMAS ── -->
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(navigationSchema)} />
     {productSchema && <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />}
     
     <!-- ── 3D Background Scripts ── -->
@@ -153,9 +179,9 @@ const productSchema = templateName ? {
               }
           }
 
-          // Particle text "KADRIFY"
+          // Particle text "AURAKADRE"
           var particles = [];
-          var text = "KADRIFY";
+          var text = "AURAKADRE";
           ctx.font = "bold 80px 'Space Grotesk', sans-serif";
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
