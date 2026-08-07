@@ -156,20 +156,23 @@
         function updateBlobScale() {
             const aspect = window.innerWidth / window.innerHeight;
             if (aspect < 0.8) {
-                baseScaleX = 0.6;
-                baseScaleY = 1.4;
-                baseScaleZ = 0.6;
-                camera.position.z = 22; // Push even further back to ensure it's not clipped
+                // Mobile : on réduit drastiquement l'échelle pour voir l'objet entier (comme un bijou flottant)
+                baseScaleX = 0.4;
+                baseScaleY = 0.4;
+                baseScaleZ = 0.4;
+                camera.position.z = 15;
             } else if (aspect > 1.2) {
-                baseScaleX = aspect * 1.2;
-                baseScaleY = 1.1;
-                baseScaleZ = 1.1;
-                camera.position.z = 12;
+                // PC : taille moyenne
+                baseScaleX = 0.5;
+                baseScaleY = 0.5;
+                baseScaleZ = 0.5;
+                camera.position.z = 15;
             } else {
-                baseScaleX = 1.2;
-                baseScaleY = 1.2;
-                baseScaleZ = 1.0;
-                camera.position.z = 16;
+                // Tablette
+                baseScaleX = 0.45;
+                baseScaleY = 0.45;
+                baseScaleZ = 0.45;
+                camera.position.z = 15;
             }
             sphere.scale.set(baseScaleX * morphScale, baseScaleY * morphScale, baseScaleZ * morphScale);
         }
