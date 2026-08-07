@@ -40,7 +40,8 @@ const links = [
       
       <!-- Mobile menu button -->
       <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-400 hover:text-white" aria-label="Menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        <svg id="close-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
   </div>
@@ -75,8 +76,8 @@ const links = [
   background: transparent;
   border: none;
   color: rgba(255,255,255,0.4);
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -98,8 +99,8 @@ const links = [
   position: absolute;
   top: 0.25rem;
   left: 0.25rem;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.75rem;
+  height: 2.75rem;
   background: #fff;
   border-radius: 50%;
   z-index: 1;
@@ -173,6 +174,13 @@ html.light .theme-active-indicator {
     mobileBtn && mobileBtn.addEventListener('click', () => {
       mobileNav.classList.toggle('hidden');
       mobileNav.classList.toggle('flex');
+      
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      if (menuIcon && closeIcon) {
+        menuIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+      }
     });
 
     // Close mobile menu on link click
@@ -180,6 +188,13 @@ html.light .theme-active-indicator {
       a.addEventListener('click', () => {
         mobileNav.classList.add('hidden');
         mobileNav.classList.remove('flex');
+        
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+        if (menuIcon && closeIcon) {
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        }
       });
     });
   });

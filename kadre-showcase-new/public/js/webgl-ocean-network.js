@@ -3,6 +3,9 @@
  * Liquid Metal Shader + Metallic Particle Ocean + Geometric Network
  */
 (function() {
+    // Désactiver cet effet très lourd sur mobile (P0 Fix)
+    if (window.innerWidth < 768) return;
+
     var canvas = document.getElementById('kadre-webgl');
     if (!canvas || typeof THREE === 'undefined') return;
 

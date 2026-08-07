@@ -56,7 +56,7 @@ const faqSchema = {
   
   <main class="pt-[72px]">
     <!-- Hero Section -->
-    <section class="relative min-h-[100svh] flex items-center justify-center overflow-hidden py-20 sm:py-32 lg:py-48">
+    <section class="relative min-h-[100svh] flex items-center justify-center overflow-x-clip py-20 sm:py-32 lg:py-48">
       <!-- Background Elements -->
       <div class="absolute inset-0 z-0">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#060608]/80 to-[#060608] z-10"></div>
@@ -242,7 +242,7 @@ const faqSchema = {
               <div class="relative aspect-video bg-black overflow-hidden border-b border-white/6">
                 <div class="absolute inset-0 pointer-events-none z-0">
                   <iframe 
-                    src={`/templates/${template.id}/index.html`}
+                    data-src={`/templates/${template.id}/index.html`}
                     loading="lazy"
                     title={`Aperçu ${template.name}`}
                     class="absolute top-0 left-0 border-none origin-top-left pointer-events-none"
@@ -288,6 +288,14 @@ const faqSchema = {
     function openSandboxModal() {
       const modal = document.getElementById('sandbox-modal');
       const panel = document.getElementById('sandbox-panel');
+      
+      // Load iframes only when modal is opened (P1 Fix)
+      const iframes = modal.querySelectorAll('iframe[data-src]');
+      iframes.forEach(iframe => {
+        iframe.src = iframe.getAttribute('data-src');
+        iframe.removeAttribute('data-src');
+      });
+
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       requestAnimationFrame(() => {

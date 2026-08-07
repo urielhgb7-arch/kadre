@@ -2,11 +2,11 @@
 
 ## 1. La Vision : Pourquoi AuraKadre a-t-il été créé ?
 
-**AuraKadre** est né d'un constat simple : les développeurs, designers, photographes et autres créatifs ont besoin d'un portfolio en ligne pour se démarquer, mais ils manquent souvent de temps, d'inspiration ou de compétences transversales (un développeur backend n'est pas forcément un as du design, et un photographe ne sait pas coder).
+**AuraKadre** est né d'un constat simple : les etudiants,les développeurs, designers, photographes,autres créatifs ou autres personnes non technique(non codeur) ont besoin d'un portfolio en ligne pour se démarquer, mais ils manquent souvent de temps, d'inspiration ou de compétences transversales (un développeur backend n'est pas forcément un as du design, et un photographe ne sait pas coder). Les solutions presentes sont soit interessante pour du basique(mais des qu'on veut avancer ont est aubliger de depenser au moins 30 000 fcfa pour 1 projet , sans compter les hebergement et nom de domaine qui son tres consequen pour nos compatriote en Afrique ) et soit complexe a utiliser pour les personne non technique(parfois meme pour  nous les codeur ) 
 
 **L'objectif d'AuraKadre est de proposer des templates de portfolios :**
 - **Premium et Ultra-modernes :** Basés sur les dernières tendances UI/UX (Glassmorphism, Brutalism, animations 3D, interactions fluides).
-- **Sans Code (No-Code friendly) :** Contrairement à des templates React ou Vue.js complexes, les templates AuraKadre sont conçus en HTML/CSS/JS pur. Ils peuvent être modifiés simplement en changeant du texte dans un fichier ou via une base de données.
+- **Sans Code (No-Code friendly) :** Contrairement à des templates React ou Vue.js complexes, les templates AuraKadre sont conçus en HTML/CSS/JS pur. Ils peuvent être modifiés simplement en changeant des valeurs dans un cms intégré, facile a mettre en place et completement personnalisable(tu peux enlever les partie dont tu n'a pas besoin sans toucher au code ou rajouter et personnaliser d'autres infos ).
 - **Accessibles financièrement :** Offrir la qualité d'une agence digitale haut de gamme à un prix abordable pour les freelances et les étudiants.
 
 AuraKadre se positionne comme **le pont entre la haute exigence technique/visuelle et l'accessibilité absolue**.
@@ -47,7 +47,7 @@ C'est le cœur du produit. **Contrairement au site vitrine qui utilise Astro, le
   1. **Zéro dépendance :** Pas besoin d'installer Node.js, NPM, React, ou de faire un `npm run build`. Le client télécharge le dossier et clique sur `index.html`.
   2. **Déploiement universel :** Hébergeable gratuitement en 1 clic sur Github Pages, Netlify, Vercel, ou n'importe quel hébergement mutualisé (Hostinger, OVH).
   3. **Personnalisation facile :** Le contenu (textes, projets) est centralisé.
-- **Intégration Base de Données (Optionnelle) :** Les templates intègrent une configuration native avec **Supabase** (BaaS) via le module `core/data-sync.js` et `core/auth.js`. Cela permet aux utilisateurs avancés de gérer leurs projets dynamiquement depuis une base de données gratuite plutôt que de modifier le HTML à la main.
+- **Intégration Base de Données (Optionnelle) :** Les templates intègrent une configuration native avec **Supabase** (BaaS) via le module `core/data-sync.js` et `core/auth.js`. Cela permet aux utilisateurs non techniciens de gérer leurs projets dynamiquement depuis le cms integré (dans le template ) plutôt que de modifier le HTML à la main.
 
 ### Les 5 Portfolios Originaux
 Chaque template a été conçu avec une psychologie et une cible utilisateur précise :
@@ -83,3 +83,6 @@ Chaque template a été conçu avec une psychologie et une cible utilisateur pr�
 
 - **AuraKadre (La coquille)** vend et met en valeur. C'est un site techniquement complexe (Astro, 3D, SEO poussé) optimisé pour l'acquisition client et la vente.
 - **Les Portfolios (Le contenu)** sont les produits. Ils sont techniquement accessibles (HTML/CSS/JS), extrêmement beaux, prêts à l'emploi et modulables, pensés pour que l'utilisateur final n'ait qu'à s'occuper de son contenu.
+## 5. Le lien
+
+[aurakadre.com](https://aurakadre.com) (a rechercher sur google)
