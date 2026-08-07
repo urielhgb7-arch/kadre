@@ -1,1 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#A1A1AA"/><text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="13" fill="#000">QS</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <!-- Background gradient: deep dark with subtle blue tint -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#060608"/>
+    </linearGradient>
+    <!-- Cyan accent gradient for the K -->
+    <linearGradient id="kGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80F2FF"/>
+      <stop offset="100%" stop-color="#00E5FF"/>
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Clip rounded rect -->
+    <clipPath id="roundedClip">
+      <rect width="64" height="64" rx="14"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+
+  <!-- Subtle inner glow ring -->
+  <rect x="1.5" y="1.5" width="61" height="61" rx="13" fill="none" 
+        stroke="url(#kGrad)" stroke-width="0.8" opacity="0.35"/>
+
+  <!-- Cyan dot accent (top right) -->
+  <circle cx="50" cy="14" r="3.5" fill="#00E5FF" opacity="0.9" filter="url(#glow)"/>
+
+  <!-- K — custom geometric paths, bold and clean -->
+  <!-- Vertical bar of K -->
+  <rect x="17" y="15" width="7" height="34" rx="2" fill="url(#kGrad)"/>
+  
+  <!-- Top diagonal arm of K -->
+  <path d="M24 32 L41 15 L47.5 15 L30 32.5 Z" fill="url(#kGrad)" rx="1"/>
+  
+  <!-- Bottom diagonal arm of K -->
+  <path d="M24 32 L41 49 L47.5 49 L30 31.5 Z" fill="url(#kGrad)"/>
+
+  <!-- Subtle glow under the K -->
+  <ellipse cx="33" cy="52" rx="14" ry="3" fill="#00E5FF" opacity="0.15"/>
+</svg>

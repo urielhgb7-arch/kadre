@@ -55,8 +55,21 @@
 
         // The Blob (Organic dynamic shape)
         const isMobile = window.innerWidth < 768;
-        // Reduce geometry complexity on mobile to save battery and increase FPS
-        const geometry = new THREE.IcosahedronGeometry(2.5, isMobile ? 24 : 64);
+        
+        // Define multiple shapes for morphing
+        const geometries = [
+            new THREE.IcosahedronGeometry(2.5, isMobile ? 24 : 64),
+            new THREE.BoxGeometry(3.5, 3.5, 3.5, 16, 16, 16),
+            new THREE.CylinderGeometry(2.5, 2.5, 4.5, 32, 16),
+            new THREE.TorusGeometry(2.0, 1.2, 32, 48)
+        ];
+        
+        let currentGeoIndex = 0;
+        let morphScale = 1.0;
+        let morphPhase = 0; // 0: idle, 1: shrink, 2: grow
+        let morphTimer = 0;
+
+        let baseScaleX = 1.0, baseScaleY = 1.0, baseScaleZ = 1.0;
         
         const material = new THREE.MeshPhysicalMaterial({
             color: 0xffffff,
@@ -137,25 +150,28 @@
             material.userData.shader = shader;
         };
 
-        const sphere = new THREE.Mesh(geometry, material);
+        const sphere = new THREE.Mesh(geometries[currentGeoIndex], material);
         scene.add(sphere);
 
         function updateBlobScale() {
             const aspect = window.innerWidth / window.innerHeight;
             if (aspect < 0.8) {
-                // Mobile: Réduire la largeur, étirer la hauteur, et reculer beaucoup la caméra 
-                // pour voir la forme globale de la boule au lieu d'un zoom extrême
-                sphere.scale.set(0.8, 1.8, 0.8);
-                camera.position.z = 20;
+                baseScaleX = 0.6;
+                baseScaleY = 1.4;
+                baseScaleZ = 0.6;
+                camera.position.z = 22; // Push even further back to ensure it's not clipped
             } else if (aspect > 1.2) {
-                // PC: Étirer horizontalement
-                sphere.scale.set(aspect * 1.2, 1.1, 1.1);
+                baseScaleX = aspect * 1.2;
+                baseScaleY = 1.1;
+                baseScaleZ = 1.1;
                 camera.position.z = 12;
             } else {
-                // Tablette
-                sphere.scale.set(1.2, 1.2, 1.0);
+                baseScaleX = 1.2;
+                baseScaleY = 1.2;
+                baseScaleZ = 1.0;
                 camera.position.z = 16;
             }
+            sphere.scale.set(baseScaleX * morphScale, baseScaleY * morphScale, baseScaleZ * morphScale);
         }
         updateBlobScale();
 
@@ -190,6 +206,30 @@
             light2.position.set(Math.cos(time * 0.9) * 2, Math.sin(time * 1.1) * 2, Math.cos(time * 0.7) * 2);
             light3.position.set(Math.sin(time * 1.3) * 2, Math.cos(time * 0.6) * 2, Math.sin(time * 0.9) * 2);
             light4.position.set(Math.cos(time * 1.2) * 2, Math.sin(time * 1.4) * 2, Math.cos(time * 1.1) * 2);
+
+            // Shape Morphing Logic
+            morphTimer += 0.01;
+            if (morphTimer > 6.0 && morphPhase === 0) {
+                morphPhase = 1;
+                morphTimer = 0;
+            }
+            if (morphPhase === 1) {
+                morphScale += (0.001 - morphScale) * 0.1;
+                if (morphScale < 0.05) {
+                    currentGeoIndex = (currentGeoIndex + 1) % geometries.length;
+                    sphere.geometry = geometries[currentGeoIndex];
+                    morphPhase = 2;
+                }
+            } else if (morphPhase === 2) {
+                morphScale += (1.0 - morphScale) * 0.05;
+                if (morphScale > 0.99) {
+                    morphScale = 1.0;
+                    morphPhase = 0;
+                }
+            }
+            
+            // Apply scale with morphing
+            sphere.scale.set(baseScaleX * morphScale, baseScaleY * morphScale, baseScaleZ * morphScale);
 
             renderer.render(scene, camera);
         }

@@ -107,13 +107,19 @@ window.setAdminBypassEnabled = function(val) {
 document.addEventListener('DOMContentLoaded', () => {
   initCoreAuthListeners();
 
-  // Sandbox "Personnaliser" button → triggers the same gesture as triple-click.
-  // Only active in sandbox/preview context so a foreign page can't force-open the CMS in production.
+  // Sandbox "Personnaliser" button → bypass direct vers CMS sans config
   try {
     if (isSandboxContext()) {
       window.addEventListener('message', (e) => {
         if (!e.data || e.data.type !== 'kadre-open-admin') return;
-        handleSecretGestureTrigger();
+        // Retry jusqu'à 5x si openHubModal pas encore chargé
+        let tries = 0;
+        const tryOpen = () => {
+          if (window.openHubModal) { window.openHubModal(); return; }
+          if (window.openAdminModal) { window.openAdminModal(); return; }
+          if (++tries < 5) setTimeout(tryOpen, 200);
+        };
+        tryOpen();
       });
     }
   } catch(e) { /* silent */ }
@@ -145,31 +151,26 @@ window.addEventListener('pageshow', (e) => {
   }
 });
 
-/**
- * Détecte si le template tourne dans un contexte d'aperçu (sandbox kadre-showcase).
- * Règle basée sur l'emplacement EXACT d'où le fichier est appelé :
- *  - chargé DANS un iframe (window.self !== window.top) → aperçu (cards/sandbox)
- *  - OU la page parente est le sandbox/previewer de Kadre
- *  - OU le paramètre explicite ?sandbox=true / ?preview=true (fallback file://)
- * Dans ce contexte : triple-clic désactivé, mais bouton "Personnaliser" actif.
- */
 function isSandboxContext() {
+  const hostname = window.location.hostname;
+  const isShowcase = hostname.includes('kadre') || hostname.includes('kadrify') || hostname === 'localhost' || hostname === '127.0.0.1';
+  if (!isShowcase) return false;
+
   try {
     if (window.self !== window.top) return true;
-  } catch(e) { /* cross-origin iframe: treat as embedded */ return true; }
+  } catch(e) { return true; }
   try {
     const parentHref = String(window.parent.location.href || '').toLowerCase();
     if (parentHref.includes('sandbox') || parentHref.includes('preview')) return true;
-  } catch(e) { /* silent */ }
+  } catch(e) {}
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get('sandbox') === 'true' || urlParams.get('preview') === 'true';
 }
-
 function initCoreAuthListeners() {
   if (isAuthInitialized) return;
   isAuthInitialized = true;
 
-  // Disable triple-click in sandbox/preview context (exact location rule)
+  // Disable triple-click in sandbox context
   if (isSandboxContext()) return;
 
   let clickCount = 0;
@@ -195,7 +196,6 @@ function initCoreAuthListeners() {
       } else {
         clickTimer = setTimeout(() => {
           if (clickCount > 0 && clickCount < 3) {
-            // It was a normal click (1 or 2), so let's navigate
             if (logoTarget.tagName.toLowerCase() === 'a' && logoTarget.href && logoTarget.getAttribute('href') !== '#') {
                 window.location.href = logoTarget.href;
             }
@@ -208,13 +208,6 @@ function initCoreAuthListeners() {
 }
 
 async function handleSecretGestureTrigger() {
-  // Bypass complet dans la Sandbox pour ouvrir directement le CMS sans config
-  if (isSandboxContext()) {
-    if (window.openHubModal) { window.openHubModal(); }
-    else if (window.openAdminModal) { window.openAdminModal(); }
-    return;
-  }
-
   // Check ?admin= bypass (only if enabled)
   const adminParam = new URLSearchParams(location.search).get('admin');
   if (adminParam && isAdminBypassEnabled()) {

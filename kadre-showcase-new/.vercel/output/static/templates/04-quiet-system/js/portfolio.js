@@ -174,6 +174,18 @@ function initScrollAnimations() {
         });
     }, { threshold: 0.15 });
     document.querySelectorAll('.fade-in-up, .content-section').forEach(el => obs.observe(el));
+
+    // Direct observer for skill bars
+    const skillObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                const fill = e.target.querySelector('.skill-bar-fill');
+                if (fill) fill.style.width = (fill.getAttribute('data-level') || 0) + '%';
+                skillObs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.skill-bar-bg').forEach(el => skillObs.observe(el));
 }
 
 function setTextById(id, t) { const e=document.getElementById(id); if(e && t!==undefined) e.textContent=t; }

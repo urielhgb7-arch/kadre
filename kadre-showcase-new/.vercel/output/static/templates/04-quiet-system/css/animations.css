@@ -19,7 +19,7 @@ body { animation: pageIn 0.45s ease-out; }
 .project-card.visible { opacity: 1; transform: translateY(0); }
 
 /* SKILL BAR ANIMATION */
-.skill-bar-fill { width: 0 !important; transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
+.skill-bar-fill { width: 0; transition: width 1.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
 /* NAV UNDERLINE */
 .nav-link { position: relative; }
@@ -128,3 +128,4 @@ body { animation: pageIn 0.45s ease-out; }
     pointer-events: none !important;
   }
 }
+

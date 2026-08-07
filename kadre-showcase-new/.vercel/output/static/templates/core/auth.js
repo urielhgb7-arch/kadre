@@ -106,6 +106,24 @@ window.setAdminBypassEnabled = function(val) {
 
 document.addEventListener('DOMContentLoaded', () => {
   initCoreAuthListeners();
+
+  // Sandbox "Personnaliser" button → bypass direct vers CMS sans config
+  try {
+    if (isSandboxContext()) {
+      window.addEventListener('message', (e) => {
+        if (!e.data || e.data.type !== 'kadre-open-admin') return;
+        // Retry jusqu'à 5x si openHubModal pas encore chargé
+        let tries = 0;
+        const tryOpen = () => {
+          if (window.openHubModal) { window.openHubModal(); return; }
+          if (window.openAdminModal) { window.openAdminModal(); return; }
+          if (++tries < 5) setTimeout(tryOpen, 200);
+        };
+        tryOpen();
+      });
+    }
+  } catch(e) { /* silent */ }
+
   // Auto-open admin if bypass enabled and URL secret matches
   try {
     const params = new URLSearchParams(location.search);
@@ -133,9 +151,27 @@ window.addEventListener('pageshow', (e) => {
   }
 });
 
+function isSandboxContext() {
+  const hostname = window.location.hostname;
+  const isShowcase = hostname.includes('kadre') || hostname.includes('kadrify') || hostname === 'localhost' || hostname === '127.0.0.1';
+  if (!isShowcase) return false;
+
+  try {
+    if (window.self !== window.top) return true;
+  } catch(e) { return true; }
+  try {
+    const parentHref = String(window.parent.location.href || '').toLowerCase();
+    if (parentHref.includes('sandbox') || parentHref.includes('preview')) return true;
+  } catch(e) {}
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('sandbox') === 'true' || urlParams.get('preview') === 'true';
+}
 function initCoreAuthListeners() {
   if (isAuthInitialized) return;
   isAuthInitialized = true;
+
+  // Disable triple-click in sandbox context
+  if (isSandboxContext()) return;
 
   let clickCount = 0;
   let clickTimer = null;
@@ -160,7 +196,6 @@ function initCoreAuthListeners() {
       } else {
         clickTimer = setTimeout(() => {
           if (clickCount > 0 && clickCount < 3) {
-            // It was a normal click (1 or 2), so let's navigate
             if (logoTarget.tagName.toLowerCase() === 'a' && logoTarget.href && logoTarget.getAttribute('href') !== '#') {
                 window.location.href = logoTarget.href;
             }

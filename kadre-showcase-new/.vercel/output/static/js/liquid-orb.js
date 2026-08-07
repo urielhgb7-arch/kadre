@@ -53,8 +53,10 @@
         pmremGenerator.compileEquirectangularShader();
         scene.environment = pmremGenerator.fromScene(envScene).texture;
 
-        // The Orb (Large diameter)
-        const geometry = new THREE.SphereGeometry(2.8, 256, 256);
+        // The Blob (Organic dynamic shape)
+        const isMobile = window.innerWidth < 768;
+        // Reduce geometry complexity on mobile to save battery and increase FPS
+        const geometry = new THREE.IcosahedronGeometry(2.5, isMobile ? 24 : 64);
         
         const material = new THREE.MeshPhysicalMaterial({
             color: 0xffffff,
@@ -126,9 +128,10 @@
                 `#include <begin_vertex>`,
                 `
                 #include <begin_vertex>
-                float noise = snoise(position * 0.8 + time * 0.5) * 0.3;
-                float noise2 = snoise(position * 2.0 - time * 0.2) * 0.1;
-                transformed += normal * (noise + noise2);
+                float noise = snoise(position * 0.4 + time * 0.3) * 1.2;
+                float noise2 = snoise(position * 1.2 - time * 0.4) * 0.4;
+                float noise3 = snoise(position * 2.5 + time * 0.5) * 0.1;
+                transformed += normal * (noise + noise2 + noise3);
                 `
             );
             material.userData.shader = shader;
@@ -136,6 +139,25 @@
 
         const sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
+
+        function updateBlobScale() {
+            const aspect = window.innerWidth / window.innerHeight;
+            if (aspect < 0.8) {
+                // Mobile: Réduire la largeur, étirer la hauteur, et reculer beaucoup la caméra 
+                // pour voir la forme globale de la boule au lieu d'un zoom extrême
+                sphere.scale.set(0.8, 1.8, 0.8);
+                camera.position.z = 20;
+            } else if (aspect > 1.2) {
+                // PC: Étirer horizontalement
+                sphere.scale.set(aspect * 1.2, 1.1, 1.1);
+                camera.position.z = 12;
+            } else {
+                // Tablette
+                sphere.scale.set(1.2, 1.2, 1.0);
+                camera.position.z = 16;
+            }
+        }
+        updateBlobScale();
 
         // Mouse interaction
         let mouseX = 0;
@@ -177,6 +199,7 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            updateBlobScale();
         });
     });
 })();
