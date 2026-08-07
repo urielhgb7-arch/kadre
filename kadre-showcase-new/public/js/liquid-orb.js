@@ -158,11 +158,11 @@
         function updateBlobScale() {
             const aspect = window.innerWidth / window.innerHeight;
             if (aspect < 0.8) {
-                // Mobile : on réduit drastiquement l'échelle pour voir l'objet entier (comme un bijou flottant)
-                baseScaleX = 0.25;
-                baseScaleY = 0.25;
-                baseScaleZ = 0.25;
-                camera.position.z = 25;
+                // Mobile : on augmente légèrement la taille comme demandé
+                baseScaleX = 0.35;
+                baseScaleY = 0.35;
+                baseScaleZ = 0.35;
+                camera.position.z = 20;
             } else if (aspect > 1.2) {
                 // PC : taille moyenne
                 baseScaleX = 0.5;
