@@ -159,9 +159,9 @@
             const aspect = window.innerWidth / window.innerHeight;
             if (aspect < 0.8) {
                 // Mobile : on augmente légèrement la taille comme demandé
-                baseScaleX = 0.35;
-                baseScaleY = 0.35;
-                baseScaleZ = 0.35;
+                baseScaleX = 0.50;
+                baseScaleY = 0.50;
+                baseScaleZ = 0.50;
                 camera.position.z = 20;
             } else if (aspect > 1.2) {
                 // PC : taille moyenne
