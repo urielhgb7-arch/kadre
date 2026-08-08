@@ -1,25 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="ak-grad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#00E5FF" />
-      <stop offset="100%" stop-color="#80F2FF" />
+      <stop offset="100%" stop-color="#0055FF" />
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="12" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-    </filter>
-    <filter id="glow-strong" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="24" result="blur" />
+    <filter id="ak-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
   </defs>
   
-  <!-- Fond noir absolu profond -->
-  <rect width="512" height="512" rx="112" fill="#060608" />
+  <!-- Fond glassmorphism (sombre) -->
+  <rect width="512" height="512" rx="120" fill="#0A0A16" />
   
-  <!-- "Kadre" : Le cadre extérieur, lumineux et élégant -->
-  <rect x="120" y="120" width="272" height="272" rx="56" fill="none" stroke="url(#grad)" stroke-width="24" filter="url(#glow)" />
-  
-  <!-- "Aura" : Le point focal central -->
-  <circle cx="256" cy="256" r="48" fill="url(#grad)" filter="url(#glow-strong)" />
+  <!-- Monogramme A + K stylisé -->
+  <g filter="url(#ak-glow)" stroke="url(#ak-grad)" stroke-width="45" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Jambe gauche du A, qui sert aussi de barre verticale du K -->
+    <path d="M 160 380 L 160 132" />
+    
+    <!-- Sommet et jambe droite du A -->
+    <path d="M 160 132 L 352 380" />
+    
+    <!-- Barre du A (plus fine) -->
+    <path d="M 160 256 L 256 256" stroke-width="35" />
+    
+    <!-- Branche haute du K -->
+    <path d="M 160 256 L 352 132" />
+  </g>
 </svg>
