@@ -6,8 +6,14 @@
     // Désactiver cet effet très lourd sur mobile (P0 Fix)
     if (window.innerWidth < 768) return;
 
-    var canvas = document.getElementById('kadre-webgl');
-    if (!canvas || typeof THREE === 'undefined') return;
+    function init() {
+        if (typeof THREE === 'undefined') {
+            // Three.js pas encore prêt, on réessaie
+            setTimeout(init, 100);
+            return;
+        }
+        var canvas = document.getElementById('kadre-webgl');
+        if (!canvas) return;
 
     // ── Renderer ──────────────────────────────────────────────────────────
     var renderer = new THREE.WebGLRenderer({ 
@@ -295,4 +301,11 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         liquidUniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
     });
+    } // end init()
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 })();
