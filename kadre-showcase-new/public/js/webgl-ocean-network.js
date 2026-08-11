@@ -241,7 +241,57 @@
     // ── Clock ─────────────────────────────────────────────────────────────
     var clock = new THREE.Clock();
 
-    // ── Animation Loop ────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════════════════
+    // LAYER 4 — MORPHING GEOMETRIC ORB (centré, en avant-plan)
+    // ══════════════════════════════════════════════════════════════════════
+    var orbScene = new THREE.Scene();
+    var orbCamera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 100);
+    orbCamera.position.z = 12;
+
+    // Lumières pour l'orbe
+    var orbLight1 = new THREE.PointLight(0x00E5FF, 200, 30);
+    orbLight1.position.set(5, 5, 5);
+    var orbLight2 = new THREE.PointLight(0xffffff, 150, 30);
+    orbLight2.position.set(-5, 5, 5);
+    var orbLight3 = new THREE.PointLight(0x6366f1, 100, 30);
+    orbLight3.position.set(0, -5, 5);
+    orbScene.add(orbLight1, orbLight2, orbLight3);
+    orbScene.add(new THREE.AmbientLight(0x0a0a1a, 1.5));
+
+    var orbGeometries = [
+        new THREE.IcosahedronGeometry(1.8, 32),
+        new THREE.BoxGeometry(2.8, 2.8, 2.8, 8, 8, 8),
+        new THREE.CylinderGeometry(1.8, 1.8, 3.2, 24, 8),
+        new THREE.TorusGeometry(1.5, 0.8, 24, 36)
+    ];
+    var orbGeoIndex = 0;
+    var orbMorphScale = 1.0;
+    var orbMorphPhase = 0;
+    var orbMorphTimer = 0;
+
+    var orbMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0x00E5FF,
+        emissive: 0x001833,
+        emissiveIntensity: 0.4,
+        metalness: 1.0,
+        roughness: 0.1,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.05,
+        transparent: true,
+        opacity: 0.92
+    });
+
+    var orb = new THREE.Mesh(orbGeometries[orbGeoIndex], orbMaterial);
+    orb.scale.setScalar(0.85);
+    orbScene.add(orb);
+
+    var orbMouseX = 0, orbMouseY = 0;
+    window.addEventListener('mousemove', function(e) {
+        orbMouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        orbMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+
     function animate() {
         var t = clock.getElapsedTime();
 
@@ -270,12 +320,49 @@
         // Network slow rotate
         lineSegs.rotation.y = t * 0.008;
 
-        // ── Render: liquid metal first, then 3D scene on top ──────────────
+        // ── ORB : rotation + mouse follow ─────────────────────────────────
+        orb.rotation.y += 0.006;
+        orb.rotation.x += 0.003;
+        orb.position.x += (orbMouseX * 0.6 - orb.position.x) * 0.04;
+        orb.position.y += (orbMouseY * 0.6 - orb.position.y) * 0.04;
+
+        // Orbiting lights
+        orbLight1.position.set(Math.sin(t) * 3, Math.cos(t * 0.8) * 3, Math.sin(t * 1.2) * 3);
+        orbLight2.position.set(Math.cos(t * 0.9) * 3, Math.sin(t * 1.1) * 3, Math.cos(t * 0.7) * 3);
+        orbLight3.position.set(Math.sin(t * 1.3) * 3, Math.cos(t * 0.6) * 3, Math.sin(t * 0.9) * 3);
+
+        // ── MORPH cycle ────────────────────────────────────────────────────
+        orbMorphTimer += 0.01;
+        if (orbMorphTimer > 5.0 && orbMorphPhase === 0) {
+            orbMorphPhase = 1;
+            orbMorphTimer = 0;
+        }
+        if (orbMorphPhase === 1) {
+            orbMorphScale += (0.001 - orbMorphScale) * 0.12;
+            if (orbMorphScale < 0.02) {
+                orbGeoIndex = (orbGeoIndex + 1) % orbGeometries.length;
+                orb.geometry = orbGeometries[orbGeoIndex];
+                orbMorphPhase = 2;
+            }
+        } else if (orbMorphPhase === 2) {
+            orbMorphScale += (1.0 - orbMorphScale) * 0.08;
+            if (orbMorphScale > 0.99) {
+                orbMorphScale = 1.0;
+                orbMorphPhase = 0;
+            }
+        }
+
+        var pulse = 1.0 + Math.sin(t * 2.0) * 0.04;
+        orb.scale.setScalar(0.85 * orbMorphScale * pulse);
+
+        // ── Render: [1] liquid metal bg, [2] particles + network, [3] orb ──
         renderer.autoClear = false;
         renderer.clear();
         renderer.render(liquidScene, liquidCamera);
         renderer.clearDepth();
         renderer.render(scene, camera);
+        renderer.clearDepth();
+        renderer.render(orbScene, orbCamera);
     }
 
     // Pause animation when tab is hidden (save CPU/GPU)
@@ -298,6 +385,8 @@
     window.addEventListener('resize', function() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
+        orbCamera.aspect = window.innerWidth / window.innerHeight;
+        orbCamera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
         liquidUniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
     });
