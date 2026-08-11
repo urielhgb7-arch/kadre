@@ -1,6 +1,9 @@
 (function() {
-    window.addEventListener('DOMContentLoaded', () => {
-        if (typeof THREE === 'undefined') return;
+    function initOrb() {
+        if (typeof THREE === 'undefined') {
+            setTimeout(initOrb, 50);
+            return;
+        }
 
         const container = document.createElement('div');
         container.style.position = 'fixed';
@@ -251,5 +254,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             updateBlobScale();
         });
-    });
+    } // end initOrb
+
+    initOrb();
 })();
