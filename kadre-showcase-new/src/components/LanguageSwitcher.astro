@@ -1,0 +1,363 @@
+---
+// LanguageSwitcher.astro
+// Dropdown glassmorphism premium inspiré de hackerlab.bj
+const languages = [
+  { code: 'FR', label: 'Français' },
+  { code: 'EN', label: 'English' },
+];
+---
+
+<div class="lang-switcher" id="lang-switcher" aria-label="Sélecteur de langue">
+  <!-- Trigger button -->
+  <button class="lang-trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false">
+    <span class="lang-globe">
+      <!-- Globe icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="2" y1="12" x2="22" y2="12"></line>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+      </svg>
+    </span>
+    <span class="lang-current" id="lang-current">FR</span>
+    <span class="lang-chevron" id="lang-chevron">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </span>
+  </button>
+
+  <!-- Dropdown -->
+  <div class="lang-dropdown" id="lang-dropdown" role="listbox" aria-label="Langues disponibles">
+    <div class="lang-dropdown-inner">
+      {languages.map((lang) => (
+        <button
+          class="lang-option"
+          role="option"
+          data-lang={lang.code}
+          aria-selected="false"
+        >
+          <span class="lang-option-code">{lang.code}</span>
+          <span class="lang-option-label">{lang.label}</span>
+          <span class="lang-check">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+/* ─────────────────────────────────────────
+   LANG SWITCHER — Glassmorphism Premium
+   ───────────────────────────────────────── */
+.lang-switcher {
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Trigger */
+.lang-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  outline: none;
+  white-space: nowrap;
+}
+
+.lang-trigger:hover,
+.lang-trigger[aria-expanded="true"] {
+  background: rgba(0, 229, 255, 0.08);
+  border-color: rgba(0, 229, 255, 0.35);
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.12);
+}
+
+.lang-globe {
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.lang-current {
+  font-family: var(--font-heading, 'Inter', sans-serif);
+}
+
+.lang-chevron {
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lang-trigger[aria-expanded="true"] .lang-chevron {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Panel */
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  min-width: 160px;
+  border-radius: 1rem;
+  background: rgba(6, 6, 10, 0.85);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(0, 229, 255, 0.08),
+    0 16px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 229, 255, 0.06);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+  /* Animation */
+  opacity: 0;
+  transform: translateY(-8px) scale(0.97);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.lang-dropdown.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.lang-dropdown-inner {
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+/* Option */
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: none;
+  border-radius: 0.65rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+  outline: none;
+}
+
+.lang-option:hover {
+  background: rgba(0, 229, 255, 0.07);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.lang-option[aria-selected="true"] {
+  background: rgba(0, 229, 255, 0.1);
+  color: #00E5FF;
+}
+
+.lang-option-code {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  min-width: 2rem;
+}
+
+.lang-option-label {
+  font-size: 0.82rem;
+  font-weight: 400;
+  opacity: 0.85;
+  flex: 1;
+}
+
+.lang-check {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  color: #00E5FF;
+  transition: opacity 0.15s ease;
+}
+
+.lang-option[aria-selected="true"] .lang-check {
+  opacity: 1;
+}
+
+/* Light mode adaptations */
+html.light .lang-trigger {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: rgba(15, 23, 42, 0.15);
+  color: rgba(15, 23, 42, 0.65);
+}
+html.light .lang-trigger:hover,
+html.light .lang-trigger[aria-expanded="true"] {
+  background: rgba(0, 150, 200, 0.07);
+  border-color: rgba(0, 180, 230, 0.4);
+  color: rgba(15, 23, 42, 0.9);
+}
+html.light .lang-dropdown {
+  background: rgba(245, 248, 252, 0.92);
+  border-color: rgba(0, 180, 230, 0.25);
+}
+html.light .lang-option {
+  color: rgba(15, 23, 42, 0.55);
+}
+html.light .lang-option:hover {
+  background: rgba(0, 150, 200, 0.06);
+  color: rgba(15, 23, 42, 0.9);
+}
+html.light .lang-option[aria-selected="true"] {
+  background: rgba(0, 150, 200, 0.1);
+  color: #0099cc;
+}
+html.light .lang-option[aria-selected="true"] .lang-check {
+  color: #0099cc;
+}
+</style>
+
+<script is:inline>
+(function() {
+  // ── i18n data (extend as needed) ───────────────────────────────────────
+  var i18n = {
+    FR: {
+      // Header
+      'nav.templates':      'Templates',
+      'nav.cta':            'Voir les templates',
+      // Hero
+      'hero.badge':         'Lancé officiellement',
+      'hero.title':         'Le Portfolio qui Te Ressemble,<br>Sans Code',
+      'hero.subtitle':      'AuraKadre est une plateforme premium proposant des templates de portfolios haut de gamme pour développeurs, designers et créatifs.',
+      'hero.cta.primary':   'Trouver mon template',
+      'hero.cta.secondary': 'Voir la Sandbox',
+      // Sections
+      'section.templates':  'Nos Templates',
+      'section.templates.sub': 'Chaque template est une identité visuelle complète.',
+      'section.preview':    'Aperçu Live',
+      // Sandbox
+      'sandbox.title':      'Essayez en direct',
+      'sandbox.subtitle':   'Testez chaque template dans la sandbox interactive.',
+      // Footer
+      'footer.tagline':     'Le portfolio qui te ressemble, sans code.',
+      'footer.contact':     'Contact',
+      'footer.legal':       'Mentions légales',
+    },
+    EN: {
+      'nav.templates':      'Templates',
+      'nav.cta':            'Browse templates',
+      'hero.badge':         'Officially launched',
+      'hero.title':         'The Portfolio That Reflects You,<br>No Code Needed',
+      'hero.subtitle':      'AuraKadre is a premium platform offering high-end portfolio templates for developers, designers and creatives.',
+      'hero.cta.primary':   'Find my template',
+      'hero.cta.secondary': 'Open Sandbox',
+      'section.templates':  'Our Templates',
+      'section.templates.sub': 'Each template is a complete visual identity.',
+      'section.preview':    'Live Preview',
+      'sandbox.title':      'Try it live',
+      'sandbox.subtitle':   'Test each template in the interactive sandbox.',
+      'footer.tagline':     'The portfolio that reflects you, no code needed.',
+      'footer.contact':     'Contact',
+      'footer.legal':       'Legal notice',
+    }
+  };
+
+  var STORAGE_KEY = 'aurakadre_lang';
+
+  function applyLang(lang) {
+    if (!i18n[lang]) return;
+    var dict = i18n[lang];
+
+    // Update all elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) {
+        el.innerHTML = dict[key];
+      }
+    });
+
+    // Update trigger label
+    var label = document.getElementById('lang-current');
+    if (label) label.textContent = lang;
+
+    // Update option states
+    document.querySelectorAll('.lang-option').forEach(function(opt) {
+      var isActive = opt.getAttribute('data-lang') === lang;
+      opt.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Persist
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch(e) {}
+
+    // Set html lang attribute
+    document.documentElement.lang = lang.toLowerCase();
+  }
+
+  function toggleDropdown(open) {
+    var dropdown = document.getElementById('lang-dropdown');
+    var trigger  = document.getElementById('lang-trigger');
+    if (!dropdown || !trigger) return;
+    dropdown.classList.toggle('open', open);
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load saved lang
+    var saved = 'FR';
+    try { saved = localStorage.getItem(STORAGE_KEY) || 'FR'; } catch(e) {}
+    applyLang(saved);
+
+    var trigger  = document.getElementById('lang-trigger');
+    var dropdown = document.getElementById('lang-dropdown');
+
+    // Toggle on trigger click
+    trigger && trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = dropdown.classList.contains('open');
+      toggleDropdown(!isOpen);
+    });
+
+    // Option click
+    document.querySelectorAll('.lang-option').forEach(function(opt) {
+      opt.addEventListener('click', function() {
+        var lang = opt.getAttribute('data-lang');
+        applyLang(lang);
+        toggleDropdown(false);
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function() {
+      toggleDropdown(false);
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') toggleDropdown(false);
+    });
+  });
+})();
+</script>

@@ -1,4 +1,5 @@
 ---
+import LanguageSwitcher from './LanguageSwitcher.astro';
 const links = [
   { href: "/#templates", label: "Templates" },
 ];
@@ -34,7 +35,9 @@ const links = [
         </button>
       </div>
 
-      <a href="/#templates" class="hidden md:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-gray-900 bg-gradient-to-br from-[#00E5FF] to-[#80F2FF] rounded-lg hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all">
+      <LanguageSwitcher />
+
+      <a href="/#templates" class="hidden md:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-gray-900 bg-gradient-to-br from-[#00E5FF] to-[#80F2FF] rounded-lg hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all" data-i18n="nav.cta">
         Voir les templates
       </a>
       
