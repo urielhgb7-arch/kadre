@@ -9,7 +9,7 @@
     "tags": ["Backend", "DevOps", "Terminal", "Minimal"],
     "stack": ["HTML5", "Vanilla CSS", "JavaScript (GSAP)"],
     "thumbnail": "/assets/preview-terminal.jpg",
-    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/terminal-craft/checkout"
+    "checkoutLink": "https://vouhshop.aurakadre.com/products/terminal-craft/checkout"
   },
   {
     "id": "02-blueprint",
@@ -21,7 +21,7 @@
     "tags": ["Full-Stack", "Clean", "Corporate"],
     "stack": ["HTML5", "CSS Grid", "GSAP (Magnetic)"],
     "thumbnail": "/assets/preview-blueprint.jpg",
-    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/blueprint/checkout"
+    "checkoutLink": "https://vouhshop.aurakadre.com/products/blueprint/checkout"
   },
   {
     "id": "03-motion-stack",
@@ -33,7 +33,7 @@
     "tags": ["Frontend", "Motion", "Creative"],
     "stack": ["CSS Natif", "GSAP ScrollTrigger"],
     "thumbnail": "/assets/preview-motion.jpg",
-    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/motion-stack/checkout"
+    "checkoutLink": "https://vouhshop.aurakadre.com/products/motion-stack/checkout"
   },
   {
     "id": "04-quiet-system",
@@ -45,7 +45,7 @@
     "tags": ["Minimal", "Design", "Brutalist"],
     "stack": ["HTML5", "Vanilla CSS", "GSAP Parallax"],
     "thumbnail": "/assets/preview-quiet.jpg",
-    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/quiet-system/checkout"
+    "checkoutLink": "https://vouhshop.aurakadre.com/products/quiet-system/checkout"
   },
   {
     "id": "05-gallery-wall",
@@ -57,6 +57,6 @@
     "tags": ["3D", "WebGL", "Interactive", "Creative"],
     "stack": ["HTML5", "Vanilla CSS", "WebGL / GSAP"],
     "thumbnail": "/assets/preview-gallery.jpg",
-    "checkoutLink": "https://huvo-shop.mymaketou.shop/products/gallery-wall/checkout"
+    "checkoutLink": "https://vouhshop.aurakadre.com/products/gallery-wall/checkout"
   }
 ]
