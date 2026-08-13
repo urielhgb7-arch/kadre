@@ -47,11 +47,12 @@
         const isMobile = window.innerWidth < 768;
         
         // Define multiple shapes for morphing
+        // Subdivisions basses = formes clairement reconnaissables
         const geometries = [
-            new THREE.IcosahedronGeometry(2.5, isMobile ? 24 : 64),
-            new THREE.BoxGeometry(3.5, 3.5, 3.5, 16, 16, 16),
-            new THREE.CylinderGeometry(2.5, 2.5, 4.5, 32, 16),
-            new THREE.TorusGeometry(2.0, 1.2, 32, 48)
+            new THREE.IcosahedronGeometry(2.5, 2),          // sphere facettée
+            new THREE.BoxGeometry(3.5, 3.5, 3.5, 1, 1, 1),  // cube net
+            new THREE.CylinderGeometry(2.2, 2.2, 4.5, 8, 1), // cylindre 8 faces
+            new THREE.TorusGeometry(2.0, 1.0, 8, 16)         // tore
         ];
         
         let currentGeoIndex = 0;
@@ -61,16 +62,14 @@
 
         let baseScaleX = 1.0, baseScaleY = 1.0, baseScaleZ = 1.0;
         
-        // Matériau cyan net — formes clairement reconnaissables
-        // metalness: 0.4 (pas 1.0 qui cause le blob blanc-miroir)
-        const material = new THREE.MeshStandardMaterial({
+        // MeshLambertMaterial = couleur directe, pas besoin d'env map
+        // La couleur cyan #00E5FF sera visible avec les PointLights
+        const material = new THREE.MeshLambertMaterial({
             color: 0x00E5FF,
-            emissive: 0x003355,
-            emissiveIntensity: 0.6,
-            metalness: 0.4,
-            roughness: 0.35,
+            emissive: 0x004466,
+            emissiveIntensity: 1.0,
             transparent: true,
-            opacity: 0.82,
+            opacity: 0.75,
         });
 
         const sphere = new THREE.Mesh(geometries[currentGeoIndex], material);
