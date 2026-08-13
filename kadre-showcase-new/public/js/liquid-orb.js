@@ -39,22 +39,9 @@
         light4.position.set(-5, -3, 3);
         scene.add(light1, light2, light3, light4);
 
-        const ambientLight = new THREE.AmbientLight(0x0a0a1a, 1.5);
+        const ambientLight = new THREE.AmbientLight(0x00E5FF, 0.8); // Cyan ambient
         scene.add(ambientLight);
 
-        // Environment Map (for metal reflections)
-        const envScene = new THREE.Scene();
-        envScene.background = new THREE.Color(0x060608);
-        const envLight1 = new THREE.PointLight(0x00E5FF, 1, 0); // Cyan
-        envLight1.position.set(10, 10, 10);
-        envScene.add(envLight1);
-        const envLight2 = new THREE.PointLight(0xffffff, 1, 0);
-        envLight2.position.set(-10, -10, 10);
-        envScene.add(envLight2);
-        
-        const pmremGenerator = new THREE.PMREMGenerator(renderer);
-        pmremGenerator.compileEquirectangularShader();
-        scene.environment = pmremGenerator.fromScene(envScene).texture;
 
         // The Blob (Organic dynamic shape)
         const isMobile = window.innerWidth < 768;
