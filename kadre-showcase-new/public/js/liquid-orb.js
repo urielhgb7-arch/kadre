@@ -146,9 +146,9 @@
                 `#include <begin_vertex>`,
                 `
                 #include <begin_vertex>
-                float noise = snoise(position * 0.4 + time * 0.3) * 1.2;
-                float noise2 = snoise(position * 1.2 - time * 0.4) * 0.4;
-                float noise3 = snoise(position * 2.5 + time * 0.5) * 0.1;
+                float noise = snoise(position * 0.4 + time * 0.3) * 0.25;
+                float noise2 = snoise(position * 1.2 - time * 0.4) * 0.1;
+                float noise3 = snoise(position * 2.5 + time * 0.5) * 0.03;
                 transformed += normal * (noise + noise2 + noise3);
                 `
             );
