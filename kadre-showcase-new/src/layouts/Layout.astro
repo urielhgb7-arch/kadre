@@ -142,11 +142,10 @@ const navigationSchema = {
     {productSchema && <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />}
     
     <!-- ── 3D Background Scripts ── -->
-    <!-- Three.js : doit être synchrone pour être dispo immédiatement -->
-    <script src="/js/three.min.js"></script>
-    <!-- Les deux scripts 3D : defer = exécutés après le HTML, dans l'ordre -->
-    <script src="/js/webgl-ocean-network.js" defer></script>
-    <script src="/js/liquid-orb.js" defer></script>
+    <!-- is:inline = Astro garde le tag tel quel (ne tente pas de bundler public/) -->
+    <script src="/js/three.min.js" is:inline></script>
+    <script src="/js/webgl-ocean-network.js" is:inline defer></script>
+    <script src="/js/liquid-orb.js" is:inline defer></script>
   </head>
   <body class="bg-gray-950 text-gray-100 font-sans antialiased min-h-screen flex flex-col relative selection:bg-indigo-500/30">
     <!-- LOADER -->
