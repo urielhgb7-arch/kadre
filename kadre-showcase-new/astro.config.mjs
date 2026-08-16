@@ -6,7 +6,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kadre-blue.vercel.app',
+  site: 'https://aurakadre.com',
   adapter: vercel({
     webAnalytics: {
       enabled: true
